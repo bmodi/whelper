@@ -25,7 +25,7 @@ public class GridFrame extends JFrame {
 	private Dictionary dictionary;
 
 	public GridFrame(Grid grid, Dictionary dictionary, String imageLocation) {
-		super("Wurdle Helper");
+		super("Whelper - The Word Game Helper");
 		this.dictionary=dictionary;
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -70,7 +70,7 @@ public class GridFrame extends JFrame {
 		Object[] sizes = { "4", "5", "6" };
 		String gridSizeStr = (String)JOptionPane.showInputDialog(null,
 				  "Initial grid size?",
-				  "Welcome to Wurdle Helper",
+				  "Welcome to Whelper",
 				  JOptionPane.QUESTION_MESSAGE, null, sizes, "5");
 		if ( gridSizeStr==null ) {
 			System.exit(0); // User cancelled - just exit
