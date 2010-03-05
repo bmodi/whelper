@@ -4,7 +4,7 @@
 	<groupId>ca.svarb</groupId>
 	<artifactId>whelper</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>Whelper</name>
 	<url>http://maven.apache.org</url>
 	<build>
@@ -23,6 +23,7 @@
                 <configuration>
                     <mainClass>ca.svarb.whelper.gui.GridFrame</mainClass>
 					<jvmVersion>1.5+</jvmVersion>
+					<iconFile>${basedir}/src/main/resources/whelper.icns</iconFile>
                 </configuration>
                 <executions>
                     <execution>

@@ -1,2 +1,2 @@
-java -jar ../target/WurdleHelper-1.0-SNAPSHOT.jar $@
+java -jar ../target/whelper-1.0.jar $@
 
