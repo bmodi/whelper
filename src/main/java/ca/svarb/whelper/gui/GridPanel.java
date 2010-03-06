@@ -1,7 +1,7 @@
 package ca.svarb.whelper.gui;
 
-import static ca.svarb.whelper.gui.WurldeGuiConsts.ICON_SIZE;
-import static ca.svarb.whelper.gui.WurldeGuiConsts.START_DOT_SIZE;
+import static ca.svarb.whelper.gui.GuiConsts.ICON_SIZE;
+import static ca.svarb.whelper.gui.GuiConsts.START_DOT_SIZE;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

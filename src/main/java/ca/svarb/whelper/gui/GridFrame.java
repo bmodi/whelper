@@ -17,6 +17,7 @@ import javax.swing.ScrollPaneConstants;
 import ca.svarb.utils.TextImageLoader;
 import ca.svarb.whelper.Dictionary;
 import ca.svarb.whelper.DictionaryLoader;
+import ca.svarb.whelper.GameBoardFactory;
 import ca.svarb.whelper.Grid;
 
 public class GridFrame extends JFrame {
@@ -49,7 +50,7 @@ public class GridFrame extends JFrame {
 		this.setResizable(false);
 	}
 
-    private static void createAndShowGUI() throws WurdleException{
+    private static void createAndShowGUI() throws WhelperException{
 
     	// First load default dictionary
 		Dictionary dictionary=null;
@@ -57,28 +58,29 @@ public class GridFrame extends JFrame {
 		
 		try {
 			InputStream dictionaryStream = GridFrame.class.getClassLoader().getResourceAsStream(dictionaryName);
-			if ( dictionaryStream==null ) throw new WurdleException("Could not find dictionary file: "+dictionaryName);
+			if ( dictionaryStream==null ) throw new WhelperException("Could not find dictionary file: "+dictionaryName);
 			System.out.println("Loading dictionary...");
 			long startTime = Calendar.getInstance().getTimeInMillis();
 			dictionary=DictionaryLoader.getInstance().loadFromReader(new InputStreamReader(dictionaryStream));
 			long endTime = Calendar.getInstance().getTimeInMillis();
 			System.out.println("Load dictionary complete: "+(endTime-startTime)+" ms");
 		} catch (IOException e) {
-			throw new WurdleException("Error reading from dictionary file: "+e.getMessage());
+			throw new WhelperException("Error reading from dictionary file: "+e.getMessage());
 		}
     	
 		Object[] sizes = { "4", "5", "6" };
-		String gridSizeStr = (String)JOptionPane.showInputDialog(null,
-				  "Initial grid size?",
+		String sizeStr = (String)JOptionPane.showInputDialog(null,
+				  "Initial board size?",
 				  "Welcome to Whelper",
 				  JOptionPane.QUESTION_MESSAGE, null, sizes, "5");
-		if ( gridSizeStr==null ) {
+		if ( sizeStr==null ) {
 			System.exit(0); // User cancelled - just exit
 		}
 
-		int gridSize=Integer.parseInt(gridSizeStr);
+		int size=Integer.parseInt(sizeStr);
 
-		Grid grid=new Grid(gridSize);
+		//Grid grid=new Grid(gridSize);
+		Grid grid=(Grid)GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.GRID, size);
 		
 		//Create and set up the window.
 		GridFrame frame = new GridFrame(grid, dictionary, "images");
@@ -96,7 +98,7 @@ public class GridFrame extends JFrame {
             public void run() {
                 try {
 					createAndShowGUI();
-				} catch (WurdleException e) {
+				} catch (WhelperException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage(), "Wurdle Problem", JOptionPane.ERROR_MESSAGE);
 					e.printStackTrace();
 				}

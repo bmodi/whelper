@@ -1,8 +1,8 @@
 package ca.svarb.whelper.gui;
 
-import static ca.svarb.whelper.gui.WurldeGuiConsts.ICON_SIZE;
-import static ca.svarb.whelper.gui.WurldeGuiConsts.SELECTED_COLOR;
-import static ca.svarb.whelper.gui.WurldeGuiConsts.UNSELECTED_COLOR;
+import static ca.svarb.whelper.gui.GuiConsts.ICON_SIZE;
+import static ca.svarb.whelper.gui.GuiConsts.SELECTED_COLOR;
+import static ca.svarb.whelper.gui.GuiConsts.UNSELECTED_COLOR;
 
 import java.awt.Dimension;
 

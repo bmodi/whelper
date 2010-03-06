@@ -40,7 +40,7 @@ public class GridPanelTester extends JFrame {
 		this.add(gridPanel);
 	}
 
-    private static void createAndShowGUI() throws WurdleException{
+    private static void createAndShowGUI() throws WhelperException{
 
 		//Create and set up the window.
 		GridPanelTester frame = new GridPanelTester();
@@ -57,7 +57,7 @@ public class GridPanelTester extends JFrame {
             public void run() {
                 try {
 					createAndShowGUI();
-				} catch (WurdleException e) {
+				} catch (WhelperException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage(), "Cell Button Tester Problem", JOptionPane.ERROR_MESSAGE);
 					e.printStackTrace();
 				}

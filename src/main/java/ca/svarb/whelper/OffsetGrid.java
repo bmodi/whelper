@@ -8,23 +8,24 @@ import java.util.NoSuchElementException;
 import ca.svarb.utils.ArgumentChecker;
 
 /**
- * A Grid stores a set of Cells in a square arrangement.
+ * A Grid stores a set of Cells in an set of columns
+ * offset from each other by 1/2 Cell width.
  * All Cells by default contain blank string ("").
  * Cells can be accessed by [col,row] values (0 indexed)
  * or iterated through.
  */
-public class Grid implements GameBoard {
+public class OffsetGrid implements GameBoard {
 
 	private int size;
 	private Cell[][] cells=null;
 
 	/**
-	 * Make a square grid of blank Cells.
+	 * Make an offset-square grid of blank Cells.
 	 * Cells will be initialized with neighbours according
 	 * to grid position.
 	 * @param size
 	 */
-	public Grid(int size) {
+	public OffsetGrid(int size) {
 		if (size<1) throw new IllegalArgumentException("Grid.size must be positive - size="+size);
 		this.size=size;
 		cells=new Cell[size][size];
