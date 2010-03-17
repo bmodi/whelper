@@ -65,7 +65,6 @@ public class OffsetGrid extends AbstractGameBoard {
 			currentCell.addNeighbour(above);
 		}
 
-		System.out.println("col="+col+", row="+row+", even="+even+", odd="+odd+", lastRow="+lastRow);
 		// Navigation
 		if(col>0) {
 			if ( even || !lastRow ) {

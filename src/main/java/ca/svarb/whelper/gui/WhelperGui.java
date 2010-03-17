@@ -23,7 +23,7 @@ import ca.svarb.whelper.IGameBoard;
 public class WhelperGui extends JFrame {
 	private static final String BOOKWORM_STR = "Bookworm";
 	private static final long serialVersionUID = 7520612959620318053L;
-	private WordGamePanel gridPanel;
+	private WordGamePanel gameBoardPanel;
 	private Dictionary dictionary;
 
 	public WhelperGui(IGameBoard gameBoard, Dictionary dictionary, String imageLocation) {
@@ -33,8 +33,8 @@ public class WhelperGui extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		
-		gridPanel = new WordGamePanel(gameBoard, new TextImageLoader(imageLocation));
-		this.getContentPane().add(gridPanel, BorderLayout.CENTER);
+		gameBoardPanel = new WordGamePanel(gameBoard, new TextImageLoader(imageLocation));
+		this.getContentPane().add(gameBoardPanel, BorderLayout.CENTER);
 		
 		JList wordsLister = new JList();
 		wordsLister.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -42,7 +42,7 @@ public class WhelperGui extends JFrame {
         JScrollPane listPane = new JScrollPane(wordsLister);
 		listPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         this.getContentPane().add(listPane, BorderLayout.EAST);
-        wordsLister.addListSelectionListener(new WordSelectedAction(gridPanel, wordsLister));
+        wordsLister.addListSelectionListener(new WordSelectedAction(gameBoardPanel, wordsLister));
 
 		JButton generateWordsButton = new JButton();
 		generateWordsButton.setAction(new GenerateWordsAction(gameBoard, this.dictionary, wordsLister));

@@ -17,7 +17,6 @@ public class WordSelectedAction implements ListSelectionListener {
 	public void valueChanged(ListSelectionEvent e) {
 		if ( !e.getValueIsAdjusting() ) {
 			Object word = wordList.getSelectedValue();
-			System.out.println("highlight new word: "+word);
 			if ( word==null ) {
 				gridPanel.clearSelection();
 			} else {
