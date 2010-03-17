@@ -29,7 +29,7 @@ public class GameBoardFactoryTest {
 
 	@Test
 	public void getGameboardOffsetGrid() {
-		IGameBoard gameBoard = factory.getGameBoard(BoardType.OFFSET_GRID, 3);
+		IGameBoard gameBoard = factory.getGameBoard(BoardType.OFFSET_GRID, 6);
 		assertTrue(gameBoard instanceof OffsetGrid);
 	}
 }
