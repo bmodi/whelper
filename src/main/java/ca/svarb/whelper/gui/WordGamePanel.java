@@ -96,6 +96,9 @@ public class WordGamePanel extends JLayeredPane implements KeyListener, FocusLis
 	 */
 	public void keyTyped(KeyEvent e) {
 		String letter = Character.toString(e.getKeyChar()).toUpperCase();
+		if ( letter.equals("Q") ) {
+			letter="QU";
+		}
 		currentCell.setValue(letter);
 		currentLabel.setIcon(imageLoader.getImage(letter));
 	}

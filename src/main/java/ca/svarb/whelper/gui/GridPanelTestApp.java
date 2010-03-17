@@ -6,11 +6,11 @@ import javax.swing.JOptionPane;
 import ca.svarb.utils.TextImageLoader;
 import ca.svarb.whelper.Grid;
 
-public class GridPanelTester extends JFrame {
+public class GridPanelTestApp extends JFrame {
 
 	private static final long serialVersionUID = -8683993437311301578L;
 
-	public GridPanelTester() {
+	public GridPanelTestApp() {
 		super("Wurdle Grid");
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -43,7 +43,7 @@ public class GridPanelTester extends JFrame {
     private static void createAndShowGUI() throws WhelperException{
 
 		//Create and set up the window.
-		GridPanelTester frame = new GridPanelTester();
+		GridPanelTestApp frame = new GridPanelTestApp();
 
         //Display the window.
         frame.pack();
