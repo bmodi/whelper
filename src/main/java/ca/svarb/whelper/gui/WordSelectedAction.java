@@ -6,10 +6,10 @@ import javax.swing.event.ListSelectionListener;
 
 public class WordSelectedAction implements ListSelectionListener {
 
-	private GridPanel gridPanel;
+	private WordGamePanel gridPanel;
 	private JList wordList;
 
-	public WordSelectedAction(GridPanel gridPanel, JList wordList) {
+	public WordSelectedAction(WordGamePanel gridPanel, JList wordList) {
 		this.gridPanel=gridPanel;
 		this.wordList=wordList;
 	}

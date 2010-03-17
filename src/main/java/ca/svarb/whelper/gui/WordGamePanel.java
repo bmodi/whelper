@@ -1,6 +1,5 @@
 package ca.svarb.whelper.gui;
 
-import static ca.svarb.whelper.gui.GuiConsts.ICON_SIZE;
 import static ca.svarb.whelper.gui.GuiConsts.START_DOT_SIZE;
 
 import java.awt.AlphaComposite;
@@ -24,28 +23,25 @@ import javax.swing.JPanel;
 
 import ca.svarb.utils.TextImageLoader;
 import ca.svarb.whelper.Cell;
-import ca.svarb.whelper.Grid;
+import ca.svarb.whelper.IGameBoard;
 import ca.svarb.whelper.Path;
 
-public class GridPanel extends JLayeredPane implements KeyListener, FocusListener, MouseListener {
+public class WordGamePanel extends JLayeredPane implements KeyListener, FocusListener, MouseListener {
 
 	private static final long serialVersionUID = -1667821127391947380L;
 	private TextImageLoader imageLoader;
 	
-	private CellLabel[][] label=null;
 	private HashMap<Cell, CellLabel> map=new HashMap<Cell, CellLabel>();
-	
+
+	private Cell currentCell=null;
 	private CellLabel currentLabel=null;
-	private int currentRow;
-	private int currentCol;
-	private int size;
-	private Grid grid;
+	private IGameBoard gameBoard;
 	private JPanel arrowPanel;
 	private Path selectedPath;
 
-	public GridPanel(Grid grid, TextImageLoader imageLoader) {
+	public WordGamePanel(IGameBoard gameBoard, TextImageLoader imageLoader) {
 		this.imageLoader=imageLoader;
-		this.grid=grid;
+		this.gameBoard=gameBoard;
 		this.addKeyListener(this);
 		this.addFocusListener(this);
 		this.addMouseListener(this);
@@ -53,26 +49,24 @@ public class GridPanel extends JLayeredPane implements KeyListener, FocusListene
 		this.setFocusable(true);
 		this.setRequestFocusEnabled(true);
 
-    	this.size = grid.getSize();
-		this.setPreferredSize(new Dimension(ICON_SIZE*size, ICON_SIZE*size));
-    	this.label=new CellLabel[size][size];
-    	for( int i=0; i<size; i++ ) {
-    		for( int j=0; j<size; j++ ) {
-				Cell cell = grid.getCell(i,j);
-				ImageIcon image = imageLoader.getImage(cell.getValue());
-    			CellLabel currentLabel = new CellLabel(cell, i*ICON_SIZE, j*ICON_SIZE, image);
-    			this.add(currentLabel,0);
-    			label[i][j] = currentLabel;
-    			map.put(cell, currentLabel);
-    		}
+		int width=0;
+		int height=0;
+    	for (Cell cell : gameBoard) {
+			ImageIcon image = imageLoader.getImage(cell.getValue());
+			CellLabel currentLabel = new CellLabel(cell, cell.getX(), cell.getY(), image);
+			this.add(currentLabel,0);
+			width=Math.max(width, currentLabel.getX()+currentLabel.getWidth());
+			height=Math.max(height, currentLabel.getY()+currentLabel.getHeight());
+			map.put(cell, currentLabel);
     	}
+		Dimension preferredSize = new Dimension(width, height);
+		this.setPreferredSize(preferredSize);
+    	currentCell = gameBoard.iterator().next();
     	
-    	arrowPanel = new ArrowPanel(size);
+    	arrowPanel = new ArrowPanel(preferredSize);
     	this.add(arrowPanel,1);
     	
-    	this.currentRow=0;
-    	this.currentCol=0;
-    	currentLabel=label[0][0];
+    	currentLabel=map.get(currentCell);
     	changeSelectedLabelTo(currentLabel);
 	}
 
@@ -83,15 +77,15 @@ public class GridPanel extends JLayeredPane implements KeyListener, FocusListene
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if ( keyCode==KeyEvent.VK_LEFT ) {
-			if ( --currentCol < 0 ) currentCol=this.size-1;
+			currentCell=currentCell.getLeftCell();
 		} else if ( keyCode==KeyEvent.VK_RIGHT ) {
-			if ( ++currentCol == size ) currentCol=0;
+			currentCell=currentCell.getRightCell();
 		} else if ( keyCode==KeyEvent.VK_UP ) {
-			if ( --currentRow < 0 ) currentRow=this.size-1;
+			currentCell=currentCell.getUpCell();
 		} else if ( keyCode==KeyEvent.VK_DOWN ) {
-			if ( ++currentRow == size ) currentRow=0;
+			currentCell=currentCell.getDownCell();
 		}
-		changeSelectedLabelTo(label[currentCol][currentRow]);
+    	changeSelectedLabelTo(map.get(currentCell));
 	}
 
 	public void keyReleased(KeyEvent e) {}
@@ -102,8 +96,8 @@ public class GridPanel extends JLayeredPane implements KeyListener, FocusListene
 	 */
 	public void keyTyped(KeyEvent e) {
 		String letter = Character.toString(e.getKeyChar()).toUpperCase();
-		this.grid.getCell(currentCol, currentRow).setValue(letter);
-		label[currentCol][currentRow].setIcon(imageLoader.getImage(letter));
+		currentCell.setValue(letter);
+		currentLabel.setIcon(imageLoader.getImage(letter));
 	}
 
 	public void focusGained(FocusEvent e) {
@@ -140,8 +134,8 @@ public class GridPanel extends JLayeredPane implements KeyListener, FocusListene
 
 
 	public void highlightWord(String selectedValue) {
-		grid.clearSelection();
-		this.selectedPath=grid.findWord(selectedValue);
+		gameBoard.clearSelection();
+		this.selectedPath=gameBoard.findWord(selectedValue);
 		if ( selectedPath!=null ) {
 			selectedPath.highlight();
 		}
@@ -149,16 +143,15 @@ public class GridPanel extends JLayeredPane implements KeyListener, FocusListene
 	}
 
 	public void clearSelection() {
-//		this.grid.clearSelection();
 		this.selectedPath=null;
 		this.repaint();
 	}
 	
 	public class ArrowPanel extends JPanel {
 		private static final long serialVersionUID = -1653463257440136491L;
-		ArrowPanel(int size) {
-			this.setPreferredSize(new Dimension(ICON_SIZE*size,ICON_SIZE*size));
-			this.setBounds(0, 0, ICON_SIZE*size, ICON_SIZE*size);
+		ArrowPanel(Dimension size) {
+			this.setPreferredSize(size);
+			this.setBounds(0, 0, size.width, size.height);
 			this.setOpaque(false);
 		}
 		

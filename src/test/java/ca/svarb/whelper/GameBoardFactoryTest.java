@@ -10,24 +10,26 @@ import ca.svarb.whelper.GameBoardFactory.BoardType;
 public class GameBoardFactoryTest {
 
 	private GameBoardFactory factory=null;
-
+	
 	@Before
 	public void setup() {
-		factory = GameBoardFactory.getInstance();
+		factory=GameBoardFactory.getInstance();		
+	}
+
+	@Test
+	public void singleton() {
+		assertSame(factory, GameBoardFactory.getInstance());
 	}
 	
-	@Test void getInstance() {
-		assertSame( factory, GameBoardFactory.getInstance() );
+	@Test
+	public void getGameboardGrid() {
+		IGameBoard gameBoard = factory.getGameBoard(BoardType.GRID, 3);
+		assertTrue(gameBoard instanceof Grid);
 	}
 
 	@Test
-	public void getGameBoardGrid() {
-		assertTrue( factory.getGameBoard(BoardType.GRID, 3) instanceof Grid );
+	public void getGameboardOffsetGrid() {
+		IGameBoard gameBoard = factory.getGameBoard(BoardType.OFFSET_GRID, 3);
+		assertTrue(gameBoard instanceof OffsetGrid);
 	}
-
-	@Test
-	public void getGameBoardOffsetGrid() {
-		assertTrue( factory.getGameBoard(BoardType.OFFSET_GRID, 3) instanceof OffsetGrid );
-	}
-
 }

@@ -35,7 +35,7 @@ public class GridPanelTester extends JFrame {
     	grid.getCell(3, 2).setValue("I");
     	grid.getCell(3, 3).setValue("C");
     	
-		GridPanel gridPanel = new GridPanel(grid, imageLoader);
+		WordGamePanel gridPanel = new WordGamePanel(grid, imageLoader);
 
 		this.add(gridPanel);
 	}

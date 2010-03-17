@@ -45,6 +45,14 @@ public class GridTest {
 		assertEquals(5, wgrid.getCell(1, 0).getNeighbours().size());
 		assertEquals(3, wgrid.getCell(2, 0).getNeighbours().size());
 		assertEquals(8, wgrid.getCell(1, 1).getNeighbours().size());
+		assertSame( wgrid.getCell(2, 0), wgrid.getCell(0, 0).getLeftCell() );
+		assertSame( wgrid.getCell(1, 0), wgrid.getCell(0, 0).getRightCell() );
+		assertSame( wgrid.getCell(0, 2), wgrid.getCell(0, 0).getUpCell() );
+		assertSame( wgrid.getCell(0, 1), wgrid.getCell(0, 0).getDownCell() );
+		assertSame( wgrid.getCell(1, 2), wgrid.getCell(2, 2).getLeftCell() );
+		assertSame( wgrid.getCell(0, 2), wgrid.getCell(2, 2).getRightCell() );
+		assertSame( wgrid.getCell(2, 1), wgrid.getCell(2, 2).getUpCell() );
+		assertSame( wgrid.getCell(2, 0), wgrid.getCell(2, 2).getDownCell() );
 	}
 
 	@Test(expected=IllegalArgumentException.class)

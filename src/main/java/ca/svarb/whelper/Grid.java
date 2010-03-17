@@ -1,11 +1,10 @@
 package ca.svarb.whelper;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import static ca.svarb.whelper.gui.GuiConsts.ICON_SIZE;
 
-import ca.svarb.utils.ArgumentChecker;
+import java.awt.Dimension;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * A Grid stores a set of Cells in a square arrangement.
@@ -13,7 +12,7 @@ import ca.svarb.utils.ArgumentChecker;
  * Cells can be accessed by [col,row] values (0 indexed)
  * or iterated through.
  */
-public class Grid implements GameBoard {
+public class Grid extends AbstractGameBoard {
 
 	private int size;
 	private Cell[][] cells=null;
@@ -30,31 +29,49 @@ public class Grid implements GameBoard {
 		cells=new Cell[size][size];
 		for (int col = 0; col < size; col++) {
 			for (int row = 0; row < size; row++) {
-				Cell currentCell=new Cell();
+				Cell currentCell=new Cell(col*Cell.CELL_WIDTH, row*Cell.CELL_WIDTH);
 				cells[col][row]=currentCell;
-				initializeNeighbours(col, row);
+				initCell(col, row);
 			}
 		}
 	}
 
-	private void initializeNeighbours(int col, int row) {
+	/**
+	 * Set Cell neighbours and left/right/up/down navigation cells
+	 * @param col
+	 * @param row
+	 */
+	private void initCell(int col, int row) {
 		Cell currentCell=this.getCell(col, row);
+		
 		if(col>0) {
 			Cell left=this.getCell(col-1, row);
 			currentCell.addNeighbour(left);
+			currentCell.setLeftCell(left);
 			if(row<this.size-1) {
-				Cell aboveRight=this.getCell(col-1, row+1);
-				currentCell.addNeighbour(aboveRight);
+				Cell belowLeft=this.getCell(col-1, row+1);
+				currentCell.addNeighbour(belowLeft);
 			}
 		}
 		if(row>0) {
 			Cell above=this.getCell(col, row-1);
 			currentCell.addNeighbour(above);
+			currentCell.setUpCell(above);
 			if(col>0) {
 				Cell aboveLeft=this.getCell(col-1, row-1);
 				currentCell.addNeighbour(aboveLeft);
 			}
 		}
+
+		if (row==this.size-1) {
+			Cell topCell=this.getCell(col, 0);
+			currentCell.setDownCell(topCell);
+		}
+		if (col==this.size-1) {
+			Cell leftEdgeCell=this.getCell(0, row);
+			currentCell.setRightCell(leftEdgeCell);
+		}
+
 	}
 
 	public Cell getCell(int col, int row) {
@@ -97,67 +114,8 @@ public class Grid implements GameBoard {
 		};
 	}
 	
-	/**
-	 * Return a list of paths each
-	 * of which is a starting point
-	 * for each Cell in the grid and
-	 * each containing only that starting
-	 * Cell.
-	 * @return
-	 */
-	public List<Path> getInitialPaths() {
-		List<Path> paths = new ArrayList<Path>();
-		for (Cell cell : this) {
-			Path path = new Path();
-			path.addCell(cell);
-			paths.add(path);
-		}
-		return paths;
-	}
-
-	/**
-	 * Checks if this grid contains the given
-	 * word, returning the first path it finds
-	 * that does, or <code>null</code> if the
-	 * word is not contained in the grid.
-	 * @param string
-	 * @return
-	 */
-	public Path findWord(String word) {
-		ArgumentChecker.checkNulls("word", word);
-		List<Path> initialPaths = getInitialPaths();
-		for (Path path : initialPaths) {
-			Path foundPath = findWord(word,path);
-			if ( foundPath!=null ) {
-				return foundPath;
-			}
-		}
-		return null;
-	}
-
-	private Path findWord(String word, Path path) {
-		if ( word.equals(path.getWord()) ) {
-			return path;
-		}
-		if ( path.getCells().size()==word.length() ) {
-			return null;
-		}
-		for( Path nextPath : path.nextPaths() ) {
-			Path foundPath = findWord(word,nextPath);
-			if ( foundPath!=null ) {
-				return foundPath;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Call setSelected(false) on all Cells.
-	 */
-	public void clearSelection() {
-		for (Cell cell : this) {
-			cell.setSelected(false);
-		}
+	public Dimension getPreferredSize() {
+		return new Dimension(ICON_SIZE*size, ICON_SIZE*size);
 	}
 
 }

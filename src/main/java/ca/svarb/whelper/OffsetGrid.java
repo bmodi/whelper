@@ -1,11 +1,7 @@
 package ca.svarb.whelper;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
-
-import ca.svarb.utils.ArgumentChecker;
 
 /**
  * A Grid stores a set of Cells in an set of columns
@@ -14,7 +10,7 @@ import ca.svarb.utils.ArgumentChecker;
  * Cells can be accessed by [col,row] values (0 indexed)
  * or iterated through.
  */
-public class OffsetGrid implements GameBoard {
+public class OffsetGrid extends AbstractGameBoard {
 
 	private int size;
 	private Cell[][] cells=null;
@@ -29,9 +25,11 @@ public class OffsetGrid implements GameBoard {
 		if (size<1) throw new IllegalArgumentException("Grid.size must be positive - size="+size);
 		this.size=size;
 		cells=new Cell[size][size];
-		for (int col = 0; col < size; col++) {
-			for (int row = 0; row < size; row++) {
-				Cell currentCell=new Cell();
+		for (int col = 0; col < size-1; col++) {
+			boolean even = col%2==0;
+			for (int row = 0; row < (even ? size-1 : size); row++) {
+				int offset = even ? Cell.CELL_WIDTH/2 : 0;
+				Cell currentCell=new Cell(col*Cell.CELL_WIDTH, row*Cell.CELL_WIDTH+offset);
 				cells[col][row]=currentCell;
 				initializeNeighbours(col, row);
 			}
@@ -40,22 +38,52 @@ public class OffsetGrid implements GameBoard {
 
 	private void initializeNeighbours(int col, int row) {
 		Cell currentCell=this.getCell(col, row);
-		if(col>0) {
+		boolean even = col%2==0;
+		boolean odd = !even;
+		boolean lastRow = even ? (row>=size-1) : (row>=size-2);
+		
+		// Neighbours
+		if(col>0 && even && !lastRow) {
 			Cell left=this.getCell(col-1, row);
+			Cell belowLeft=this.getCell(col-1, row+1);
 			currentCell.addNeighbour(left);
-			if(row<this.size-1) {
-				Cell aboveRight=this.getCell(col-1, row+1);
-				currentCell.addNeighbour(aboveRight);
+			currentCell.addNeighbour(belowLeft);
+		} else if (col>0 && odd) {
+			if ( row>0 ) {
+				Cell aboveLeft=this.getCell(col-1, row-1);
+				currentCell.addNeighbour(aboveLeft);
+			}
+			if ( !lastRow ) {
+				Cell left=this.getCell(col-1, row);
+				currentCell.addNeighbour(left);
 			}
 		}
 		if(row>0) {
 			Cell above=this.getCell(col, row-1);
 			currentCell.addNeighbour(above);
-			if(col>0) {
-				Cell aboveLeft=this.getCell(col-1, row-1);
-				currentCell.addNeighbour(aboveLeft);
+		}
+
+		// Navigation
+		if(col>0) {
+			if ( even || !lastRow ) {
+				Cell left=this.getCell(col-1, row);
+				System.out.println("col="+col+", row="+row+", even="+even+", odd="+odd+", lastRow="+lastRow);
+				currentCell.setLeftCell(left);
 			}
 		}
+		if (col==this.size-2) {
+			Cell leftEdgeCell=this.getCell(0, row);
+			currentCell.setRightCell(leftEdgeCell);
+		}
+		if(row>0) {
+			Cell above=this.getCell(col, row-1);
+			currentCell.setUpCell(above);
+		}
+		if(lastRow) {
+			Cell firstCell=this.getCell(col, 0);
+			currentCell.setDownCell(firstCell);
+		}
+
 	}
 
 	public Cell getCell(int col, int row) {
@@ -82,11 +110,13 @@ public class OffsetGrid implements GameBoard {
 				if ( !hasNext ) {
 					throw new NoSuchElementException();
 				}
-				Cell cell=cells[col++][row];
-				if(col==size) {
-					col=0;
-					row++;
-					if(row==size) hasNext=false;
+				Cell cell=cells[col][row++];
+				boolean even = col%2==0;
+				boolean lastRow = even ? (row>=size-1) : (row>=size);
+				if(lastRow) {
+					row=0;
+					col++;
+					if(col==size-1) hasNext=false;
 				}
 				return cell;
 			}
@@ -96,69 +126,6 @@ public class OffsetGrid implements GameBoard {
 			}
 			
 		};
-	}
-	
-	/**
-	 * Return a list of paths each
-	 * of which is a starting point
-	 * for each Cell in the grid and
-	 * each containing only that starting
-	 * Cell.
-	 * @return
-	 */
-	public List<Path> getInitialPaths() {
-		List<Path> paths = new ArrayList<Path>();
-		for (Cell cell : this) {
-			Path path = new Path();
-			path.addCell(cell);
-			paths.add(path);
-		}
-		return paths;
-	}
-
-	/**
-	 * Checks if this grid contains the given
-	 * word, returning the first path it finds
-	 * that does, or <code>null</code> if the
-	 * word is not contained in the grid.
-	 * @param string
-	 * @return
-	 */
-	public Path findWord(String word) {
-		ArgumentChecker.checkNulls("word", word);
-		List<Path> initialPaths = getInitialPaths();
-		for (Path path : initialPaths) {
-			Path foundPath = findWord(word,path);
-			if ( foundPath!=null ) {
-				return foundPath;
-			}
-		}
-		return null;
-	}
-
-	private Path findWord(String word, Path path) {
-		if ( word.equals(path.getWord()) ) {
-			return path;
-		}
-		if ( path.getCells().size()==word.length() ) {
-			return null;
-		}
-		for( Path nextPath : path.nextPaths() ) {
-			Path foundPath = findWord(word,nextPath);
-			if ( foundPath!=null ) {
-				return foundPath;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Call setSelected(false) on all Cells.
-	 */
-	public void clearSelection() {
-		for (Cell cell : this) {
-			cell.setSelected(false);
-		}
 	}
 
 }

@@ -18,21 +18,22 @@ import ca.svarb.utils.TextImageLoader;
 import ca.svarb.whelper.Dictionary;
 import ca.svarb.whelper.DictionaryLoader;
 import ca.svarb.whelper.GameBoardFactory;
-import ca.svarb.whelper.Grid;
+import ca.svarb.whelper.IGameBoard;
 
-public class GridFrame extends JFrame {
+public class WhelperGui extends JFrame {
+	private static final String BOOKWORM_STR = "Bookworm";
 	private static final long serialVersionUID = 7520612959620318053L;
-	private GridPanel gridPanel;
+	private WordGamePanel gridPanel;
 	private Dictionary dictionary;
 
-	public GridFrame(Grid grid, Dictionary dictionary, String imageLocation) {
+	public WhelperGui(IGameBoard gameBoard, Dictionary dictionary, String imageLocation) {
 		super("Whelper - The Word Game Helper");
 		this.dictionary=dictionary;
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		
-		gridPanel = new GridPanel(grid, new TextImageLoader(imageLocation));
+		gridPanel = new WordGamePanel(gameBoard, new TextImageLoader(imageLocation));
 		this.getContentPane().add(gridPanel, BorderLayout.CENTER);
 		
 		JList wordsLister = new JList();
@@ -44,7 +45,7 @@ public class GridFrame extends JFrame {
         wordsLister.addListSelectionListener(new WordSelectedAction(gridPanel, wordsLister));
 
 		JButton generateWordsButton = new JButton();
-		generateWordsButton.setAction(new GenerateWordsAction(grid, this.dictionary, wordsLister));
+		generateWordsButton.setAction(new GenerateWordsAction(gameBoard, this.dictionary, wordsLister));
 		this.getContentPane().add(generateWordsButton, BorderLayout.SOUTH);
 		
 		this.setResizable(false);
@@ -57,7 +58,7 @@ public class GridFrame extends JFrame {
 		String dictionaryName = "TWL06.txt";
 		
 		try {
-			InputStream dictionaryStream = GridFrame.class.getClassLoader().getResourceAsStream(dictionaryName);
+			InputStream dictionaryStream = WhelperGui.class.getClassLoader().getResourceAsStream(dictionaryName);
 			if ( dictionaryStream==null ) throw new WhelperException("Could not find dictionary file: "+dictionaryName);
 			System.out.println("Loading dictionary...");
 			long startTime = Calendar.getInstance().getTimeInMillis();
@@ -68,22 +69,25 @@ public class GridFrame extends JFrame {
 			throw new WhelperException("Error reading from dictionary file: "+e.getMessage());
 		}
     	
-		Object[] sizes = { "4", "5", "6" };
+		Object[] sizes = { "4x4 Grid", "5x5 Grid", "6x6 Grid", "7x7 Grid", "8x8 Grid", BOOKWORM_STR };
 		String sizeStr = (String)JOptionPane.showInputDialog(null,
 				  "Initial board size?",
 				  "Welcome to Whelper",
-				  JOptionPane.QUESTION_MESSAGE, null, sizes, "5");
+				  JOptionPane.QUESTION_MESSAGE, null, sizes, "5x5 Grid");
 		if ( sizeStr==null ) {
 			System.exit(0); // User cancelled - just exit
 		}
 
-		int size=Integer.parseInt(sizeStr);
-
-		//Grid grid=new Grid(gridSize);
-		Grid grid=(Grid)GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.GRID, size);
+		IGameBoard gameBoard=null;
+		if ( sizeStr.equals(BOOKWORM_STR) ) {
+			gameBoard=GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.OFFSET_GRID, 8);
+		} else {
+			int size=Integer.parseInt(sizeStr.substring(0, 1));
+			gameBoard=GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.GRID, size);
+		}
 		
 		//Create and set up the window.
-		GridFrame frame = new GridFrame(grid, dictionary, "images");
+		WhelperGui frame = new WhelperGui(gameBoard, dictionary, "images");
 		frame.setLocationRelativeTo(null);
 
         //Display the window.

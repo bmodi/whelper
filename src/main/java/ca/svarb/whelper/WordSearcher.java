@@ -17,10 +17,10 @@ public class WordSearcher {
 		return instance;
 	}
 
-	public SortedSet<String> findWords(Dictionary dictionary, Grid grid) {
+	public SortedSet<String> findWords(Dictionary dictionary, IGameBoard gameBoard) {
 		SortedSet<String> foundWords = new TreeSet<String>();
 
-		List<Path> initialPaths = grid.getInitialPaths();
+		List<Path> initialPaths = gameBoard.getInitialPaths();
 		for (Path path : initialPaths) {
 			foundWords.addAll(TextUtils.getInstance().getWords(path,dictionary));
 		}
