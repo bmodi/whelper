@@ -128,5 +128,4 @@ public class OffsetGrid extends AbstractGameBoard {
 			
 		};
 	}
-
 }

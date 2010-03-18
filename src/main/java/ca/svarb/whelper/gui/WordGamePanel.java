@@ -64,7 +64,7 @@ public class WordGamePanel extends JLayeredPane implements KeyListener, FocusLis
     	currentCell = gameBoard.iterator().next();
     	
     	arrowPanel = new ArrowPanel(preferredSize);
-    	this.add(arrowPanel,1);
+    	this.add(arrowPanel,2);
     	
     	currentLabel=map.get(currentCell);
     	changeSelectedLabelTo(currentLabel);
@@ -85,7 +85,11 @@ public class WordGamePanel extends JLayeredPane implements KeyListener, FocusLis
 		} else if ( keyCode==KeyEvent.VK_DOWN ) {
 			currentCell=currentCell.getDownCell();
 		}
-    	changeSelectedLabelTo(map.get(currentCell));
+    	updateSelectedLabel();
+	}
+
+	private void updateSelectedLabel() {
+		changeSelectedLabelTo(map.get(currentCell));
 	}
 
 	public void keyReleased(KeyEvent e) {}
@@ -115,6 +119,12 @@ public class WordGamePanel extends JLayeredPane implements KeyListener, FocusLis
 
 	public void mouseClicked(MouseEvent e) {
 		this.requestFocusInWindow();
+		Cell clickedCell=this.gameBoard.getCellAt( e.getX(), e.getY() );
+		if ( clickedCell!=null ) {
+			this.currentCell=clickedCell;
+			updateSelectedLabel();
+		}
+		System.out.println("click: "+e.getX()+", "+e.getY());
 	}
 
 	public void mouseEntered(MouseEvent e) {
@@ -183,12 +193,12 @@ public class WordGamePanel extends JLayeredPane implements KeyListener, FocusLis
 		        g2d.setColor(Color.YELLOW);
 	            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f));
 	
-		            for(Cell cell : selectedPath.getCells() ) {
-		            	CellLabel cellLabel = map.get(cell);
-		            	Rectangle bounds = cellLabel.getBounds();
-		            	g2d.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
-		            }
+	            for(Cell cell : selectedPath.getCells() ) {
+	            	CellLabel cellLabel = map.get(cell);
+	            	Rectangle bounds = cellLabel.getBounds();
+	            	g2d.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 	            }
+            }
 	    }
 	}
 }

@@ -70,4 +70,16 @@ public abstract class AbstractGameBoard implements IGameBoard {
 		return null;
 	}
 
+	public Cell getCellAt(int x, int y) {
+		Cell foundCell=null;
+		for (Cell cell : this) {
+			if ( x>=cell.getX() && x<cell.getX()+Cell.CELL_WIDTH &&
+				 y>=cell.getY() && y<cell.getY()+Cell.CELL_WIDTH ) {
+				foundCell=cell;
+				break;
+			}				
+		}
+		return foundCell;
+	}
+
 }

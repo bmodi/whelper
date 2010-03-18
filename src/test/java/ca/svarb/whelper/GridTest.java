@@ -148,4 +148,14 @@ public class GridTest {
 		assertFalse(wgrid.getCell(1, 2).isSelected());
 		assertFalse(wgrid.getCell(2, 1).isSelected());
 	}
+	
+	@Test
+	public void getCellAt() {
+		assertSame(wgrid.getCell(0, 0), wgrid.getCellAt(0,0));
+		assertSame(wgrid.getCell(0, 0), wgrid.getCellAt(Cell.CELL_WIDTH/2, Cell.CELL_WIDTH/2));
+		assertSame(wgrid.getCell(0, 0), wgrid.getCellAt(Cell.CELL_WIDTH-1, Cell.CELL_WIDTH-1));
+		assertSame(wgrid.getCell(1, 1), wgrid.getCellAt(Cell.CELL_WIDTH, Cell.CELL_WIDTH));
+		assertNull(wgrid.getCellAt(-1,-1));
+		assertNull(wgrid.getCellAt(Cell.CELL_WIDTH*3+1,Cell.CELL_WIDTH*3+1));
+	}
 }

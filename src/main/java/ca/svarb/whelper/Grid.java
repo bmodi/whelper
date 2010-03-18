@@ -117,5 +117,4 @@ public class Grid extends AbstractGameBoard {
 	public Dimension getPreferredSize() {
 		return new Dimension(ICON_SIZE*size, ICON_SIZE*size);
 	}
-
 }
