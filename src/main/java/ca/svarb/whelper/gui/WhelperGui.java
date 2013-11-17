@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,7 +35,7 @@ public class WhelperGui extends JFrame {
 		gameBoardPanel = new WordGamePanel(gameBoard, new TextImageLoader(imageLocation));
 		this.getContentPane().add(gameBoardPanel, BorderLayout.CENTER);
 		
-		JList wordsLister = new JList();
+		JList<String> wordsLister = new JList<>();
 		wordsLister.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		wordsLister.setFixedCellWidth(160);
         JScrollPane listPane = new JScrollPane(wordsLister);
@@ -60,11 +59,7 @@ public class WhelperGui extends JFrame {
 		try {
 			InputStream dictionaryStream = WhelperGui.class.getClassLoader().getResourceAsStream(dictionaryName);
 			if ( dictionaryStream==null ) throw new WhelperException("Could not find dictionary file: "+dictionaryName);
-			System.out.println("Loading dictionary...");
-			long startTime = Calendar.getInstance().getTimeInMillis();
 			dictionary=DictionaryLoader.getInstance().loadFromReader(new InputStreamReader(dictionaryStream));
-			long endTime = Calendar.getInstance().getTimeInMillis();
-			System.out.println("Load dictionary complete: "+(endTime-startTime)+" ms");
 		} catch (IOException e) {
 			throw new WhelperException("Error reading from dictionary file: "+e.getMessage());
 		}

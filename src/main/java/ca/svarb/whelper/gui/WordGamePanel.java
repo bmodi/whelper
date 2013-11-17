@@ -124,7 +124,6 @@ public class WordGamePanel extends JLayeredPane implements KeyListener, FocusLis
 			this.currentCell=clickedCell;
 			updateSelectedLabel();
 		}
-		System.out.println("click: "+e.getX()+", "+e.getY());
 	}
 
 	public void mouseEntered(MouseEvent e) {
@@ -190,7 +189,7 @@ public class WordGamePanel extends JLayeredPane implements KeyListener, FocusLis
 
 	            // Highlight selected cells
 		        Graphics2D g2d = (Graphics2D)g;
-		        g2d.setColor(Color.YELLOW);
+		        g2d.setColor(Color.GREEN);
 	            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f));
 	
 	            for(Cell cell : selectedPath.getCells() ) {

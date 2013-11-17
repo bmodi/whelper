@@ -15,9 +15,9 @@ public class GenerateWordsAction extends AbstractAction {
 	private static final long serialVersionUID = -7568568024717221223L;
 	private IGameBoard gameBoard;
 	private Dictionary dictionary;
-	private JList wordsLister;
+	private JList<String> wordsLister;
 
-	public GenerateWordsAction(IGameBoard gameBoard, Dictionary dictionary, JList wordsLister) {
+	public GenerateWordsAction(IGameBoard gameBoard, Dictionary dictionary, JList<String> wordsLister) {
 		super("Generate Word List");
 		this.dictionary=dictionary;
 		this.gameBoard=gameBoard;
@@ -26,7 +26,7 @@ public class GenerateWordsAction extends AbstractAction {
 
 	public void actionPerformed(ActionEvent e) {
 		SortedSet<String> words = WordSearcher.getInstance().findWords(this.dictionary, this.gameBoard);
-		this.wordsLister.setListData(words.toArray());
+		this.wordsLister.setListData(words.toArray(new String[0]));
 	}
 
 }

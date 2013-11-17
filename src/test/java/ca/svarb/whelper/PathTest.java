@@ -139,6 +139,11 @@ public class PathTest {
 	public void getWord() {
 		assertEquals("apple", path1.getWord());
 	}
+	
+	@Test
+	public void toString_equalsGetWord() {
+		assertEquals("apple", path1.toString());
+	}	
 
 	@Test
 	public void getWordEmptyPath() {

@@ -41,25 +41,32 @@ public class OffsetGrid extends AbstractGameBoard {
 		boolean even = col%2==0;
 		boolean odd = !even;
 		boolean lastRow = even ? (row>=size-2) : (row>=size-1);
-		
+		System.out.println("col="+col+", row="+row+", even="+even+", lastRow="+lastRow);
 		// Neighbours
-		if(col>0 && even && !lastRow) {
-			Cell left=this.getCell(col-1, row);
-			Cell belowLeft=this.getCell(col-1, row+1);
-			currentCell.addNeighbour(left);
-			currentCell.addNeighbour(belowLeft);
-		} else if (col>0 && odd) {
-			if ( row>0 ) {
+		if(col>0) {
+			if ( !(odd && lastRow) ) {
+				Cell left=this.getCell(col-1, row);
+				currentCell.addNeighbour(left);
+			}
+			if ( even ) {
+				Cell belowLeft=this.getCell(col-1, row+1);
+				currentCell.addNeighbour(belowLeft);
+			} else if (row>0) {
 				Cell aboveLeft=this.getCell(col-1, row-1);
 				currentCell.addNeighbour(aboveLeft);
 			}
-			if ( !lastRow ) {
-				Cell left=this.getCell(col-1, row);
-				currentCell.addNeighbour(left);
-			} else {
-				currentCell.setLeftCell(currentCell);
-			}
-		}
+		} //else if (col>0 && odd) {
+//			if ( row>0 ) {
+//				Cell aboveLeft=this.getCell(col-1, row-1);
+//				currentCell.addNeighbour(aboveLeft);
+//			}
+//			if ( !lastRow ) {
+//				Cell left=this.getCell(col-1, row);
+//				currentCell.addNeighbour(left);
+//			} else {
+//				currentCell.setLeftCell(currentCell);
+//			}
+//		}
 		if(row>0) {
 			Cell above=this.getCell(col, row-1);
 			currentCell.addNeighbour(above);
@@ -70,6 +77,8 @@ public class OffsetGrid extends AbstractGameBoard {
 			if ( even || !lastRow ) {
 				Cell left=this.getCell(col-1, row);
 				currentCell.setLeftCell(left);
+			} else {
+				currentCell.setLeftCell(currentCell);
 			}
 		}
 		if (col==this.size-2) {

@@ -57,6 +57,7 @@ public class WordSearcherApp {
 				String[] row = rowStr.split(",");
 				rows.add(row);
 			}
+			fileReader.close();
 		} catch (FileNotFoundException e) {
 			throw new Exception("Could not find grid file: "+gridFile.getAbsolutePath());
 		} catch (IOException e) {

@@ -7,9 +7,9 @@ import javax.swing.event.ListSelectionListener;
 public class WordSelectedAction implements ListSelectionListener {
 
 	private WordGamePanel gridPanel;
-	private JList wordList;
+	private JList<String> wordList;
 
-	public WordSelectedAction(WordGamePanel gridPanel, JList wordList) {
+	public WordSelectedAction(WordGamePanel gridPanel, JList<String> wordList) {
 		this.gridPanel=gridPanel;
 		this.wordList=wordList;
 	}
