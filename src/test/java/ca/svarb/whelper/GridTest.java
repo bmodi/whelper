@@ -2,6 +2,7 @@ package ca.svarb.whelper;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -76,6 +77,27 @@ public class GridTest {
 	}
 
 	@Test
+	public void setSize() {
+		wgrid.setSize(4);
+		assertEquals(4, wgrid.getSize());
+		// Check that grid is reset to blanks and to new size
+		assertEquals("", wgrid.getCell(3,3).getValue());
+		assertEquals("", wgrid.getCell(2,1).getValue());
+	}
+
+	@Test
+	public void getCells() {
+		List<Cell> cells=wgrid.getCells();
+		assertEquals(9, cells.size());
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void getCellsReturnsReadOnlyList() {
+		List<Cell> cells=wgrid.getCells();
+		cells.add(null);
+	}
+
+	@Test
 	public void iterator() {
 		Iterator<Cell> iterator = wgrid.iterator();
 		Cell cell=iterator.next();
@@ -84,10 +106,10 @@ public class GridTest {
 		iterator.next();
 		iterator.next();
 		iterator.next();
+		iterator.next();
+		iterator.next();
 		cell=iterator.next();
 		assertEquals("A", cell.getValue());
-		iterator.next();
-		iterator.next();
 		iterator.next();
 		assertFalse(iterator.hasNext());
 	}
@@ -110,13 +132,25 @@ public class GridTest {
 	
 	@Test
 	public void getInitialPaths() {
+		List<Cell> cells=wgrid.getCells();
+		List<Cell> pathCells=new ArrayList<>();
+		// Check that all paths contain only one cell
+		// and that the cell is contained in the grid
 		List<Path> initialPaths = wgrid.getInitialPaths();
 		assertEquals(9, initialPaths.size());
 		for (Path path : initialPaths) {
 			assertEquals(1, path.getCells().size());
+			// Get initial cell
+			Cell cell=path.getCells().get(0);
+			assertTrue(cells.contains(cell));
+			pathCells.add(cell);
+			System.out.println("cell="+cell);
 		}
 		assertSame(wgrid.getCell(0, 0), initialPaths.get(0).getCells().get(0));
-		assertSame(wgrid.getCell(0, 2), initialPaths.get(6).getCells().get(0));
+		assertSame(wgrid.getCell(2, 0), initialPaths.get(6).getCells().get(0));
+
+		// Check that all the cells are found in the path cell list
+		assertTrue(pathCells.containsAll(cells));
 	}
 	
 	@Test
