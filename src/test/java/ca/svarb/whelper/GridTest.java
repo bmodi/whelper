@@ -144,7 +144,6 @@ public class GridTest {
 			Cell cell=path.getCells().get(0);
 			assertTrue(cells.contains(cell));
 			pathCells.add(cell);
-			System.out.println("cell="+cell);
 		}
 		assertSame(wgrid.getCell(0, 0), initialPaths.get(0).getCells().get(0));
 		assertSame(wgrid.getCell(2, 0), initialPaths.get(6).getCells().get(0));

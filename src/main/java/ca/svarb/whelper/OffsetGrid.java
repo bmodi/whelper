@@ -41,7 +41,6 @@ public class OffsetGrid extends AbstractGameBoard {
 		boolean even = col%2==0;
 		boolean odd = !even;
 		boolean lastRow = even ? (row>=size-2) : (row>=size-1);
-		System.out.println("col="+col+", row="+row+", even="+even+", lastRow="+lastRow);
 		// Neighbours
 		if(col>0) {
 			if ( !(odd && lastRow) ) {
@@ -55,18 +54,7 @@ public class OffsetGrid extends AbstractGameBoard {
 				Cell aboveLeft=this.getCell(col-1, row-1);
 				currentCell.addNeighbour(aboveLeft);
 			}
-		} //else if (col>0 && odd) {
-//			if ( row>0 ) {
-//				Cell aboveLeft=this.getCell(col-1, row-1);
-//				currentCell.addNeighbour(aboveLeft);
-//			}
-//			if ( !lastRow ) {
-//				Cell left=this.getCell(col-1, row);
-//				currentCell.addNeighbour(left);
-//			} else {
-//				currentCell.setLeftCell(currentCell);
-//			}
-//		}
+		}
 		if(row>0) {
 			Cell above=this.getCell(col, row-1);
 			currentCell.addNeighbour(above);
