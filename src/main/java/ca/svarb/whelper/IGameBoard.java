@@ -2,7 +2,7 @@ package ca.svarb.whelper;
 
 import java.util.List;
 
-public interface IGameBoard extends Iterable<Cell> {
+public interface IGameBoard extends List<Cell> {
 
 	/**
 	 * Return a list of paths each

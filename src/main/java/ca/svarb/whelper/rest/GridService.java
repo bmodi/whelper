@@ -1,5 +1,6 @@
 package ca.svarb.whelper.rest;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ca.svarb.whelper.Grid;
+import ca.svarb.whelper.rest.Cell;
+import ca.svarb.whelper.rest.Grid;
 
 @Controller
 @RequestMapping("/grid")
@@ -35,4 +37,11 @@ public class GridService {
 		gridMap.put(id, grid);
 		return id;
 	}
+
+	@RequestMapping(value = "/{gridId}/cells", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Cell> getCells(@PathVariable(value = "gridId") long id) {
+		return gridMap.get(id).getCells();
+	}
+
 }

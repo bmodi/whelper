@@ -5,7 +5,7 @@ import java.util.List;
 
 import ca.svarb.utils.ArgumentChecker;
 
-public abstract class AbstractGameBoard implements IGameBoard {
+public abstract class AbstractGameBoard extends ArrayList<Cell> implements IGameBoard {
 
 	/**
 	 * Return a list of paths each

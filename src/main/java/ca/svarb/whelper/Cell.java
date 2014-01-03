@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import ca.svarb.utils.ArgumentChecker;
 
 /**
@@ -17,6 +20,7 @@ import ca.svarb.utils.ArgumentChecker;
  *   each of "left, right, up, down" directions
  *
  */
+@XmlRootElement
 public class Cell {
 
 	public static final int CELL_WIDTH = 40;
@@ -31,6 +35,10 @@ public class Cell {
 	private int x;
 	private int y;
 
+	public Cell() {
+		this("");
+	}
+	
 	/**
 	 * Construct a default Cell containing blank string ("") at (0,0)
 	 */
@@ -63,6 +71,7 @@ public class Cell {
 		return Collections.unmodifiableSet(neighbours);
 	}
 
+	@XmlElement
 	public String getValue() {
 		return value;
 	}
