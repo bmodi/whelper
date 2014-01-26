@@ -6,13 +6,10 @@ function drawBoard() {
     var bw = 400;
     var bh = 400;
     var p = 10;
-    var cw = bw + (p * 2) + 1;
-    var ch = bh + (p * 2) + 1;
     
     var gridCanvas = document.getElementById("gridCanvas");
     var highlightCanvas = document.getElementById("highlightCanvas");
     var gridContext = gridCanvas.getContext("2d");
-    var highlightContext = highlightCanvas.getContext("2d");
     
     for (var x = 0; x <= bw; x += 40) {
         gridContext.moveTo(0.5 + x + p, p);
@@ -47,4 +44,3 @@ function addClickListener(canvas) {
         context.stroke();
     }, false);
 }
-
