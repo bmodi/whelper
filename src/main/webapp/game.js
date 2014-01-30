@@ -1,15 +1,29 @@
+var currentRow=1;
+var currentCol=3;
+var highlightCanvas;
+var highlightContext;
+var gridCanvas;
+var gridContext;
+
 function initGame() {
-    drawBoard();
+	init();
+	drawBoard();
+    addHighlightCanvasClickListener();
+    addHighlightCanvasKeyListener();
+	highlightCell(currentRow,currentCol);
+}
+
+function init() {
+    highlightCanvas = document.getElementById("highlightCanvas");
+    highlightContext = highlightCanvas.getContext("2d");
+    gridCanvas = document.getElementById("gridCanvas");
+    gridContext = gridCanvas.getContext("2d");    
 }
 
 function drawBoard() {
     var bw = 400;
     var bh = 400;
     var p = 10;
-    
-    var gridCanvas = document.getElementById("gridCanvas");
-    var highlightCanvas = document.getElementById("highlightCanvas");
-    var gridContext = gridCanvas.getContext("2d");
     
     for (var x = 0; x <= bw; x += 40) {
         gridContext.moveTo(0.5 + x + p, p);
@@ -24,23 +38,30 @@ function drawBoard() {
 
     gridContext.strokeStyle = "black";
     gridContext.stroke();
-    
-    addClickListener(highlightCanvas);
 }
 
-function addClickListener(canvas) {
-    var context = canvas.getContext("2d");
-    canvas.addEventListener('mousedown', function (event) {
-        var x = event.pageX-30;
-        var y = event.pageY-30;
-        context.beginPath();
-        context.clearRect(0, 0, 420, 420);
-        context.strokeStyle = "maroon";
-        context.lineWidth = 5;
+function addHighlightCanvasClickListener() {
+	highlightCanvas.addEventListener('mousedown', function (event) {
         var col = (event.pageX/40|0)-1;
         var row = (event.pageY/40|0)-1;
-        context.rect(col*40+10, row*40+10, 40, 40);
-        context.fillRect(x,y,1,1);
-        context.stroke();
+        highlightCell(row, col);
     }, false);
+}
+
+function addHighlightCanvasKeyListener() {
+	highlightCanvas.addEventListener('keydown', function (event) {
+		if (event.keyCode == 87) {
+			++currentRow;
+		}
+		highlightCell(currentRow,currentCol);
+    }, true);
+}
+
+function highlightCell(row, col) {
+	highlightContext.beginPath();
+	highlightContext.clearRect(0, 0, 420, 420);
+	highlightContext.strokeStyle = "maroon";
+	highlightContext.lineWidth = 5;
+	highlightContext.rect(col*40+10, row*40+10, 40, 40);
+	highlightContext.stroke();	
 }
