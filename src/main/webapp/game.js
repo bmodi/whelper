@@ -1,9 +1,11 @@
-var currentRow=1;
-var currentCol=3;
+var currentRow=0;
+var currentCol=0;
 var highlightCanvas;
 var highlightContext;
 var gridCanvas;
 var gridContext;
+var p = 10;
+var cellSize=40;
 
 function initGame() {
 	init();
@@ -23,15 +25,14 @@ function init() {
 function drawBoard() {
     var bw = 400;
     var bh = 400;
-    var p = 10;
     
-    for (var x = 0; x <= bw; x += 40) {
+    for (var x = 0; x <= bw; x += cellSize) {
         gridContext.moveTo(0.5 + x + p, p);
         gridContext.lineTo(0.5 + x + p, bh + p);
     }
 
 
-    for (var x = 0; x <= bh; x += 40) {
+    for (var x = 0; x <= bh; x += cellSize) {
         gridContext.moveTo(p, 0.5 + x + p);
         gridContext.lineTo(bw + p, 0.5 + x + p);
     }
@@ -41,17 +42,23 @@ function drawBoard() {
 }
 
 function addHighlightCanvasClickListener() {
-	highlightCanvas.addEventListener('mousedown', function (event) {
-        var col = (event.pageX/40|0)-1;
-        var row = (event.pageY/40|0)-1;
-        highlightCell(row, col);
+	highlightCanvas.addEventListener('click', function (event) {
+        currentCol = (event.pageX/cellSize|0)-1;
+        currentRow = (event.pageY/cellSize|0)-1;
+        highlightCell(currentRow, currentCol);
     }, false);
 }
 
 function addHighlightCanvasKeyListener() {
 	highlightCanvas.addEventListener('keydown', function (event) {
-		if (event.keyCode == 87) {
+		if (event.keyCode == 37) { // left
+			--currentCol;
+		} else if (event.keyCode == 38) { // up
+			--currentRow;
+		} else if (event.keyCode == 40) { // down
 			++currentRow;
+		} else if (event.keyCode == 39) { // right
+			++currentCol;
 		}
 		highlightCell(currentRow,currentCol);
     }, true);
@@ -62,6 +69,6 @@ function highlightCell(row, col) {
 	highlightContext.clearRect(0, 0, 420, 420);
 	highlightContext.strokeStyle = "maroon";
 	highlightContext.lineWidth = 5;
-	highlightContext.rect(col*40+10, row*40+10, 40, 40);
+	highlightContext.rect(col*cellSize+10, row*cellSize+10, cellSize, cellSize);
 	highlightContext.stroke();	
 }
