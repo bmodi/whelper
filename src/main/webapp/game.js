@@ -1,10 +1,12 @@
 var currentRow=0;
 var currentCol=0;
+var maxRow=9;
+var maxCol=9;
 var highlightCanvas;
 var highlightContext;
 var gridCanvas;
 var gridContext;
-var p = 10;
+var borderWidth=10;
 var cellSize=40;
 
 function initGame() {
@@ -27,14 +29,14 @@ function drawBoard() {
     var bh = 400;
     
     for (var x = 0; x <= bw; x += cellSize) {
-        gridContext.moveTo(0.5 + x + p, p);
-        gridContext.lineTo(0.5 + x + p, bh + p);
+        gridContext.moveTo(0.5 + x + borderWidth, borderWidth);
+        gridContext.lineTo(0.5 + x + borderWidth, bh + borderWidth);
     }
 
 
     for (var x = 0; x <= bh; x += cellSize) {
-        gridContext.moveTo(p, 0.5 + x + p);
-        gridContext.lineTo(bw + p, 0.5 + x + p);
+        gridContext.moveTo(borderWidth, 0.5 + x + borderWidth);
+        gridContext.lineTo(bw + borderWidth, 0.5 + x + borderWidth);
     }
 
     gridContext.strokeStyle = "black";
@@ -60,8 +62,16 @@ function addHighlightCanvasKeyListener() {
 		} else if (event.keyCode == 39) { // right
 			++currentCol;
 		}
+		fixRowColOutsideBoundaries();
 		highlightCell(currentRow,currentCol);
     }, true);
+}
+
+function fixRowColOutsideBoundaries() {
+	if ( currentRow<0 ) currentRow=maxRow;
+	if ( currentCol<0 ) currentCol=maxCol;
+	if ( currentRow>maxRow ) currentRow=0;
+	if ( currentCol>maxCol ) currentCol=0;
 }
 
 function highlightCell(row, col) {
