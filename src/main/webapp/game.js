@@ -4,10 +4,13 @@ var maxRow=9;
 var maxCol=9;
 var highlightCanvas;
 var highlightContext;
+var textCanvas;
+var textContext;
 var gridCanvas;
 var gridContext;
 var borderWidth=10;
 var cellSize=40;
+var fontSize=36;
 
 function initGame() {
 	init();
@@ -15,6 +18,10 @@ function initGame() {
     addHighlightCanvasClickListener();
     addHighlightCanvasKeyListener();
 	highlightCell(currentRow,currentCol);
+	setCellText(2,3,'A');
+	setCellText(5,8,'B');
+	setCellText(0,0,'M');
+	setCellText(9,9,'M');
 }
 
 function init() {
@@ -22,6 +29,8 @@ function init() {
     highlightContext = highlightCanvas.getContext("2d");
     gridCanvas = document.getElementById("gridCanvas");
     gridContext = gridCanvas.getContext("2d");    
+    textCanvas = document.getElementById("textCanvas");
+    textContext = gridCanvas.getContext("2d");    
 }
 
 function drawBoard() {
@@ -53,14 +62,18 @@ function addHighlightCanvasClickListener() {
 
 function addHighlightCanvasKeyListener() {
 	highlightCanvas.addEventListener('keydown', function (event) {
-		if (event.keyCode == 37) { // left
+		keyCode=event.keyCode;
+		if (keyCode == 37) { // left
 			--currentCol;
-		} else if (event.keyCode == 38) { // up
+		} else if (keyCode == 38) { // up
 			--currentRow;
-		} else if (event.keyCode == 40) { // down
+		} else if (keyCode == 40) { // down
 			++currentRow;
-		} else if (event.keyCode == 39) { // right
+		} else if (keyCode == 39) { // right
 			++currentCol;
+		} else if (keyCode>=65 && keyCode<=90 ) {
+			text=String.fromCharCode(keyCode);
+			setCellText(currentRow,currentCol,text);
 		}
 		fixRowColOutsideBoundaries();
 		highlightCell(currentRow,currentCol);
@@ -80,5 +93,16 @@ function highlightCell(row, col) {
 	highlightContext.strokeStyle = "maroon";
 	highlightContext.lineWidth = 5;
 	highlightContext.rect(col*cellSize+10, row*cellSize+10, cellSize, cellSize);
-	highlightContext.stroke();	
+	highlightContext.stroke();
+}
+
+function setCellText(row, col, text) {
+	textContext.beginPath();
+	textContext.clearRect(col*cellSize+11, row*cellSize+11, cellSize-1, cellSize-1);
+	textContext.fillStyle = "indigo";
+	textContext.font = "bold "+fontSize+"px Arial";
+	textContext.textAlign = 'center';
+	textContext.textBaseline = 'middle';
+	textContext.fillText(text, col*cellSize+10+cellSize/2, row*cellSize+11+cellSize/2);
+	textContext.stroke();
 }
