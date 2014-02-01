@@ -11,6 +11,7 @@ var gridContext;
 var borderWidth=10;
 var cellSize=40;
 var fontSize=36;
+var cells;
 
 function initGame() {
 	init();
@@ -30,7 +31,19 @@ function init() {
     gridCanvas = document.getElementById("gridCanvas");
     gridContext = gridCanvas.getContext("2d");    
     textCanvas = document.getElementById("textCanvas");
-    textContext = gridCanvas.getContext("2d");    
+    textContext = gridCanvas.getContext("2d");
+    createEmptyCells();
+    console.log("cells="+cells);
+}
+
+function createEmptyCells() {
+	cells = new Array(10);
+	for (var i = 0; i < 10; i++) {
+		cells[i] = new Array(10);
+		for( var j=0; j<10; j++) {
+			cells[i][j]="A";
+		}
+	}
 }
 
 function drawBoard() {
@@ -97,6 +110,8 @@ function highlightCell(row, col) {
 }
 
 function setCellText(row, col, text) {
+	cells[row][col]=text;
+	console.log("cells="+cells);
 	textContext.beginPath();
 	textContext.clearRect(col*cellSize+11, row*cellSize+11, cellSize-1, cellSize-1);
 	textContext.fillStyle = "indigo";
