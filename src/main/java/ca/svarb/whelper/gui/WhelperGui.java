@@ -21,6 +21,7 @@ import ca.svarb.whelper.IGameBoard;
 
 public class WhelperGui extends JFrame {
 	private static final String BOOKWORM_STR = "Bookworm";
+    private static final String SPELLTOWER_STR = "Spell Tower";
 	private static final long serialVersionUID = 7520612959620318053L;
 	private WordGamePanel gameBoardPanel;
 	private Dictionary dictionary;
@@ -52,7 +53,52 @@ public class WhelperGui extends JFrame {
 
     private static void createAndShowGUI() throws WhelperException{
 
-    	// First load default dictionary
+		Dictionary dictionary = loadDefaultDictionary();
+    	
+		String sizeStr = queryUserForGameboard();
+
+		IGameBoard gameBoard = createGameBoard(sizeStr);
+
+		//Create and set up the window.
+		WhelperGui frame = new WhelperGui(gameBoard, dictionary, "images");
+		frame.setLocationRelativeTo(null);
+
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+	private static String queryUserForGameboard() {
+		Object[] sizes = { "4x4 Grid", "5x5 Grid", "6x6 Grid", "7x7 Grid", "8x8 Grid", BOOKWORM_STR, SPELLTOWER_STR };
+		
+		String sizeStr = (String)JOptionPane.showInputDialog(null,
+				  "Initial board size?",
+				  "Welcome to Whelper",
+				  JOptionPane.QUESTION_MESSAGE, null, sizes, "5x5 Grid");
+		if ( sizeStr==null ) {
+			System.exit(0); // User cancelled - just exit
+		}
+		return sizeStr;
+	}
+
+	private static IGameBoard createGameBoard(String sizeStr) {
+		IGameBoard gameBoard=null;
+		if ( sizeStr.equals(BOOKWORM_STR) ) {
+			gameBoard=GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.OFFSET_GRID, 8);
+        } else if ( sizeStr.equals(SPELLTOWER_STR) ) {
+            gameBoard=GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.GRID, 8, 11);
+		} else {
+			int size=Integer.parseInt(sizeStr.substring(0, 1));
+			gameBoard=GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.GRID, size);
+		}
+		if ( gameBoard==null ) {
+			JOptionPane.showMessageDialog(null, "Sorry that game board is not currently supported");
+			System.exit(0);
+		}
+		return gameBoard;
+	}
+
+	private static Dictionary loadDefaultDictionary() throws WhelperException {
 		Dictionary dictionary=null;
 		String dictionaryName = "TWL06.txt";
 		
@@ -63,32 +109,8 @@ public class WhelperGui extends JFrame {
 		} catch (IOException e) {
 			throw new WhelperException("Error reading from dictionary file: "+e.getMessage());
 		}
-    	
-		Object[] sizes = { "4x4 Grid", "5x5 Grid", "6x6 Grid", "7x7 Grid", "8x8 Grid", BOOKWORM_STR };
-		String sizeStr = (String)JOptionPane.showInputDialog(null,
-				  "Initial board size?",
-				  "Welcome to Whelper",
-				  JOptionPane.QUESTION_MESSAGE, null, sizes, "5x5 Grid");
-		if ( sizeStr==null ) {
-			System.exit(0); // User cancelled - just exit
-		}
-
-		IGameBoard gameBoard=null;
-		if ( sizeStr.equals(BOOKWORM_STR) ) {
-			gameBoard=GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.OFFSET_GRID, 8);
-		} else {
-			int size=Integer.parseInt(sizeStr.substring(0, 1));
-			gameBoard=GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.GRID, size);
-		}
-		
-		//Create and set up the window.
-		WhelperGui frame = new WhelperGui(gameBoard, dictionary, "images");
-		frame.setLocationRelativeTo(null);
-
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
+		return dictionary;
+	}
 
 	public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:

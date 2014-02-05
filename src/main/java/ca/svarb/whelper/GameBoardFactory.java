@@ -27,4 +27,7 @@ public class GameBoardFactory {
 		return board;
 	}
 
+    public IGameBoard getGameBoard(BoardType grid, int colCount, int rowCount) {
+        return null;
+    }
 }
