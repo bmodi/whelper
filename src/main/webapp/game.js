@@ -33,7 +33,6 @@ function init() {
     textCanvas = document.getElementById("textCanvas");
     textContext = gridCanvas.getContext("2d");
     createEmptyCells();
-    console.log("cells="+cells);
 }
 
 function createEmptyCells() {
@@ -41,7 +40,7 @@ function createEmptyCells() {
 	for (var i = 0; i < 10; i++) {
 		cells[i] = new Array(10);
 		for( var j=0; j<10; j++) {
-			cells[i][j]="A";
+			cells[i][j]="";
 		}
 	}
 }
@@ -67,8 +66,12 @@ function drawBoard() {
 
 function addHighlightCanvasClickListener() {
 	highlightCanvas.addEventListener('click', function (event) {
-        currentCol = (event.pageX/cellSize|0)-1;
-        currentRow = (event.pageY/cellSize|0)-1;
+		var rect = highlightCanvas.getBoundingClientRect();
+	    var x=event.x-rect.left-borderWidth;
+	    var y=event.y-rect.top-borderWidth;
+
+        currentCol = (x/cellSize|0);
+        currentRow = (y/cellSize|0);
         highlightCell(currentRow, currentCol);
     }, false);
 }
