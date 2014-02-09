@@ -1,5 +1,6 @@
 package ca.svarb.whelper.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -36,6 +37,15 @@ public class GridService {
 		System.out.println("new grid "+id);
 		gridMap.put(id, grid);
 		return id;
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> getWords() {
+		List<String> words=new ArrayList<>();
+		words.add("abc");
+		words.add("def");
+		return words;
 	}
 
 	@RequestMapping(value = "/{gridId}/cells", method = RequestMethod.GET)

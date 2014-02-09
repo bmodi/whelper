@@ -114,7 +114,6 @@ function highlightCell(row, col) {
 
 function setCellText(row, col, text) {
 	cells[row][col]=text;
-	console.log("cells="+cells);
 	textContext.beginPath();
 	textContext.clearRect(col*cellSize+11, row*cellSize+11, cellSize-1, cellSize-1);
 	textContext.fillStyle = "indigo";
@@ -123,4 +122,28 @@ function setCellText(row, col, text) {
 	textContext.textBaseline = 'middle';
 	textContext.fillText(text, col*cellSize+10+cellSize/2, row*cellSize+11+cellSize/2);
 	textContext.stroke();
+}
+
+function generateWords() {
+	console.log("cells="+cells);
+	var url = "api/grid";
+	var representationOfDesiredState = "The cheese is old and moldy, where is the bathroom?";
+
+	var client = new XMLHttpRequest();
+
+	client.open("GET", url, false);
+	client.setRequestHeader("Content-Type", "text/plain");
+	client.send(representationOfDesiredState);
+
+	if (client.status == 200) {
+	    var words = JSON.parse(client.responseText);
+	    for(var i=0;i<words.length;i++){
+//	        var select = document.getElementById("test");
+	    	console.log("word "+i+": "+words[i]);
+//	        select.options[select.options.length] = new Option(concertArray[i][0], concertArray[i][1]);
+	    }
+	}	
+	else
+	    alert("The request did not succeed!\n\nThe response status was: " + client.status + " " + client.statusText + ".");
+
 }
