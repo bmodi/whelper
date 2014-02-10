@@ -125,29 +125,26 @@ function setCellText(row, col, text) {
 }
 
 function generateWords() {
-	console.log("cells="+cells);
 	var url = "api/grid";
-	var representationOfDesiredState = "[\"somestring1\", \"somestring2\"]";
-
 	var client = new XMLHttpRequest();
 
 	client.open("POST", url, false);
 	client.setRequestHeader("Content-Type", "application/json");
-	var mycars = new Array();
-	mycars[0] = "Saab";
-	mycars[1] = "Volvo";
-	mycars[2] = "BMW";
-	var grid=JSON.stringify(mycars);
-	console.log("grid="+grid);
+	var grid=JSON.stringify(cells);
 	client.send(grid);
 
 	if (client.status == 200) {
 	    var words = JSON.parse(client.responseText);
-	    for(var i=0;i<words.length;i++){
-//	        var select = document.getElementById("test");
+        var select = document.getElementById("wordList");
+        select.innerHTML = "";
+        for (var i = 0; i < words.length; i++) {
 	    	console.log("word "+i+": "+words[i]);
-//	        select.options[select.options.length] = new Option(concertArray[i][0], concertArray[i][1]);
-	    }
+            var opt = words[i];
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            select.appendChild(el);
+        }
 	}	
 	else
 	    alert("The request did not succeed!\n\nThe response status was: " + client.status + " " + client.statusText + ".");

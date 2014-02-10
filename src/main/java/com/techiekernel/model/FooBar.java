@@ -46,7 +46,6 @@ public class FooBar {
 	
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
 		return this.id;
 	}
 	

@@ -12,7 +12,7 @@
         </div>
         <div id="controls">
 	        <button type="button" onclick="generateWords()">Find Words</button>
-			<select size="25" style="width: 100%">
+			<select id="wordList" size="25" style="width: 100%">
 			</select>
         </div>
     </div>
