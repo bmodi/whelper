@@ -127,13 +127,19 @@ function setCellText(row, col, text) {
 function generateWords() {
 	console.log("cells="+cells);
 	var url = "api/grid";
-	var representationOfDesiredState = "The cheese is old and moldy, where is the bathroom?";
+	var representationOfDesiredState = "[\"somestring1\", \"somestring2\"]";
 
 	var client = new XMLHttpRequest();
 
-	client.open("GET", url, false);
-	client.setRequestHeader("Content-Type", "text/plain");
-	client.send(representationOfDesiredState);
+	client.open("POST", url, false);
+	client.setRequestHeader("Content-Type", "application/json");
+	var mycars = new Array();
+	mycars[0] = "Saab";
+	mycars[1] = "Volvo";
+	mycars[2] = "BMW";
+	var grid=JSON.stringify(mycars);
+	console.log("grid="+grid);
+	client.send(grid);
 
 	if (client.status == 200) {
 	    var words = JSON.parse(client.responseText);

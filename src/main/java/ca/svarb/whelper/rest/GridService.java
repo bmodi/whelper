@@ -20,38 +20,15 @@ import ca.svarb.whelper.rest.Grid;
 @RequestMapping("/grid")
 public class GridService {
 
-	private final AtomicLong GRID_ID_SEQ = new AtomicLong();
-	private final ConcurrentMap<Long, Grid> gridMap = new ConcurrentHashMap<Long, Grid>();
-
-	@RequestMapping(value = "/{gridId}", method = RequestMethod.GET)
-	@ResponseBody
-	public Grid getGrid(@PathVariable(value = "gridId") long id) {
-		System.out.println("got request 2");
-		return gridMap.get(id);
-	}
-
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public long createGrid(@RequestBody Grid grid) {
-		long id = GRID_ID_SEQ.incrementAndGet();
-		System.out.println("new grid "+id);
-		gridMap.put(id, grid);
-		return id;
-	}
-
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public List<String> getWords() {
+	public List<String> getWords(@RequestBody List<String> grid) {
+		for (String string : grid) {
+			System.out.println("grid: "+string);
+		}
 		List<String> words=new ArrayList<>();
-		words.add("abc");
-		words.add("def");
+		words.add(grid.get(0)+"abc");
+		words.add(grid.get(1)+"def");
 		return words;
 	}
-
-	@RequestMapping(value = "/{gridId}/cells", method = RequestMethod.GET)
-	@ResponseBody
-	public List<Cell> getCells(@PathVariable(value = "gridId") long id) {
-		return gridMap.get(id).getCells();
-	}
-
 }
