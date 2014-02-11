@@ -35,9 +35,10 @@ public class GridService {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public SortedSet<String> getWords(@RequestBody String[][] cells) {
-		IGameBoard grid=TextUtils.getInstance().getGridFromString2D(cells);
-		SortedSet<String> words = WordSearcher.getInstance().findWords(dictionary, grid);
+	public SortedSet<String> getWords(@RequestBody Grid grid) {
+		System.out.println("grid="+grid);
+		IGameBoard board=TextUtils.getInstance().getGridFromString2D(grid.getCells());
+		SortedSet<String> words = WordSearcher.getInstance().findWords(dictionary, board);
 		return words;
 	}
 	

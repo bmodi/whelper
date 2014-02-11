@@ -130,8 +130,8 @@ function generateWords() {
 
 	client.open("POST", url, false);
 	client.setRequestHeader("Content-Type", "application/json");
-	var grid=JSON.stringify(cells);
-	client.send(grid);
+	var grid={"gridType":"GRID", "cells":cells};
+	client.send(JSON.stringify(grid));
 
 	if (client.status == 200) {
 	    var words = JSON.parse(client.responseText);
