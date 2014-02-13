@@ -11,7 +11,6 @@
                 <canvas id="highlightCanvas" tabindex="0" width="420px" height="420px" style="z-index: 2;"></canvas>
         </div>
         <div id="controls">
-	        <button type="button" onclick="generateWords()">Find Words</button>
 			<select id="wordList" size="25" style="width: 100%">
 			</select>
         </div>

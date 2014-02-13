@@ -23,6 +23,7 @@ function initGame() {
 	setCellText(5,8,'B');
 	setCellText(0,0,'M');
 	setCellText(9,9,'M');
+    highlightCanvas.focus();
 }
 
 function init() {
@@ -122,6 +123,7 @@ function setCellText(row, col, text) {
 	textContext.textBaseline = 'middle';
 	textContext.fillText(text, col*cellSize+10+cellSize/2, row*cellSize+11+cellSize/2);
 	textContext.stroke();
+	generateWords();
 }
 
 function generateWords() {
