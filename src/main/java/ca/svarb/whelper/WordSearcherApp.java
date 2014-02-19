@@ -25,7 +25,7 @@ public class WordSearcherApp {
 			System.out.println("Error: "+e.getMessage());
 			return;
 		}
-		AbstractGameBoard grid=TextUtils.getInstance().getGridFromString2D(cells);
+		IGameBoard grid=TextUtils.getInstance().getGridFromString2D(cells);
 		
 		Dictionary dictionary=null;
 		File dictFile=new File(args[1]);

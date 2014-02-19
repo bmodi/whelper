@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * A Grid stores a set of Cells in an set of columns
- * offset from each other by 1/2 Cell width.
+ * An OffsetGrid stores a set of Cells in an set of
+ * columns offset from each other by 1/2 Cell width.
  * All Cells by default contain blank string ("").
  * Cells can be accessed by [col,row] values (0 indexed)
  * or iterated through.

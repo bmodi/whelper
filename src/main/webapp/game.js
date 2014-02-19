@@ -19,10 +19,6 @@ function initGame() {
     addHighlightCanvasClickListener();
     addHighlightCanvasKeyListener();
 	highlightCell(currentRow,currentCol);
-	setCellText(2,3,'A');
-	setCellText(5,8,'B');
-	setCellText(0,0,'M');
-	setCellText(9,9,'M');
     highlightCanvas.focus();
 }
 
@@ -91,6 +87,8 @@ function addHighlightCanvasKeyListener() {
 		} else if (keyCode>=65 && keyCode<=90 ) {
 			text=String.fromCharCode(keyCode);
 			setCellText(currentRow,currentCol,text);
+		} else if (keyCode==32 || keyCode==8 || keyCode==46) {
+			setCellText(currentRow,currentCol,"");
 		}
 		fixRowColOutsideBoundaries();
 		highlightCell(currentRow,currentCol);

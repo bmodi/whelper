@@ -154,8 +154,8 @@ public class GridTest {
 	
 	@Test
 	public void findWord() {
-		wgrid=TextUtils.getInstance().getGridFromString2D(gridStrings);
-		Path wordPath = wgrid.findWord("hat");
+		IGameBoard board = TextUtils.getInstance().getGridFromString2D(gridStrings);
+		Path wordPath = board.findWord("hat");
 		assertEquals(3, wordPath.getCells().size());
 		assertSame(wgrid.getCell(0, 1), wordPath.getCells().get(0));
 		assertSame(wgrid.getCell(1, 0), wordPath.getCells().get(1));

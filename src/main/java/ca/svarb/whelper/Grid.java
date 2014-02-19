@@ -8,16 +8,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * A Grid stores a set of Cells in a square arrangement.
  * All Cells by default contain blank string ("").
  * Cells can be accessed by [col,row] values (0 indexed)
  * or iterated through.
  */
-@XmlRootElement
 public class Grid extends AbstractGameBoard implements Iterable<Cell> {
 
 	private int size;
@@ -100,7 +96,6 @@ public class Grid extends AbstractGameBoard implements Iterable<Cell> {
 		return cells[col][row];
 	}
 
-	@XmlElement
 	public int getSize() {
 		return size;
 	}
