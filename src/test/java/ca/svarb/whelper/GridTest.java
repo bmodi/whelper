@@ -22,7 +22,7 @@ public class GridTest {
 	public void setup() {
 		wgrid = new Grid(3);
 		wgrid.getCell(2,1).setValue("A");
-		wgrid.getCell(0,0).setValue("");
+		//wgrid.getCell(0,0).setValue("");
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -154,12 +154,12 @@ public class GridTest {
 	
 	@Test
 	public void findWord() {
-		IGameBoard board = TextUtils.getInstance().getGridFromString2D(gridStrings);
-		Path wordPath = board.findWord("hat");
+		Grid grid = TextUtils.getInstance().getGridFromString2D(gridStrings);
+		Path wordPath = grid.findWord("hat");
 		assertEquals(3, wordPath.getCells().size());
-		assertSame(wgrid.getCell(0, 1), wordPath.getCells().get(0));
-		assertSame(wgrid.getCell(1, 0), wordPath.getCells().get(1));
-		assertSame(wgrid.getCell(2, 0), wordPath.getCells().get(2));
+		assertSame(grid.getCell(0, 1), wordPath.getCells().get(0));
+		assertSame(grid.getCell(1, 0), wordPath.getCells().get(1));
+		assertSame(grid.getCell(2, 0), wordPath.getCells().get(2));
 	}
 
 	@Test

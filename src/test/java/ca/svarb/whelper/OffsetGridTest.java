@@ -39,12 +39,9 @@ public class OffsetGridTest {
 		assertSame( wgrid.getCell(1, 0), wgrid.getCell(0, 0).getRightCell() );
 
 		// Last cell on the row wraps around to the left
-		assertSame( wgrid.getCell(0, 0), wgrid.getCell(4, 0).getRightCell() );
+		assertSame( wgrid.getCell(0, 0), wgrid.getCell(5, 0).getRightCell() );
 
 		// Last cell on the col wraps around to top
-		assertSame( wgrid.getCell(0, 0), wgrid.getCell(0, 4).getDownCell() );
-		
-		// Last cell on the odd columns can't navigate left/right
-		assertSame( wgrid.getCell(1, 5), wgrid.getCell(1, 5).getLeftCell() );
+		assertSame( wgrid.getCell(0, 0), wgrid.getCell(0, 5).getDownCell() );
 	}
 }

@@ -1,6 +1,12 @@
 package ca.svarb.whelper;
 
+import static ca.svarb.whelper.gui.GuiConsts.ICON_SIZE;
+
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -14,6 +20,7 @@ public class OffsetGrid extends AbstractGameBoard {
 
 	private int size;
 	private Cell[][] cells=null;
+	private List<Cell> cellList=null;
 
 	/**
 	 * Make an offset-square grid of blank Cells.
@@ -25,12 +32,15 @@ public class OffsetGrid extends AbstractGameBoard {
 		if (size<1) throw new IllegalArgumentException("Grid.size must be positive - size="+size);
 		this.size=size;
 		cells=new Cell[size][size];
-		for (int col = 0; col < size-1; col++) {
+		cellList=new ArrayList<Cell>(size*size);
+		for (int col = 0; col < size; col++) {
 			boolean even = col%2==0;
-			for (int row = 0; row < (even ? size-1 : size); row++) {
-				int offset = even ? Cell.CELL_WIDTH/2 : 0;
+			boolean odd = !even;
+			for (int row = 0; row < size; row++) {
+				int offset = odd ? Cell.CELL_WIDTH/2 : 0;
 				Cell currentCell=new Cell(col*Cell.CELL_WIDTH, row*Cell.CELL_WIDTH+offset);
 				cells[col][row]=currentCell;
+				cellList.add(currentCell);
 				initializeNeighbours(col, row);
 			}
 		}
@@ -40,14 +50,11 @@ public class OffsetGrid extends AbstractGameBoard {
 		Cell currentCell=this.getCell(col, row);
 		boolean even = col%2==0;
 		boolean odd = !even;
-		boolean lastRow = even ? (row>=size-2) : (row>=size-1);
 		// Neighbours
 		if(col>0) {
-			if ( !(odd && lastRow) ) {
-				Cell left=this.getCell(col-1, row);
-				currentCell.addNeighbour(left);
-			}
-			if ( even ) {
+			Cell left=this.getCell(col-1, row);
+			currentCell.addNeighbour(left);
+			if ( odd && row<this.size-1 ) {
 				Cell belowLeft=this.getCell(col-1, row+1);
 				currentCell.addNeighbour(belowLeft);
 			} else if (row>0) {
@@ -62,25 +69,22 @@ public class OffsetGrid extends AbstractGameBoard {
 
 		// Navigation
 		if(col>0) {
-			if ( even || !lastRow ) {
-				Cell left=this.getCell(col-1, row);
-				currentCell.setLeftCell(left);
-			} else {
-				currentCell.setLeftCell(currentCell);
-			}
-		}
-		if (col==this.size-2) {
-			Cell leftEdgeCell=this.getCell(0, row);
-			currentCell.setRightCell(leftEdgeCell);
+			Cell left=this.getCell(col-1, row);
+			currentCell.setLeftCell(left);
 		}
 		if(row>0) {
 			Cell above=this.getCell(col, row-1);
 			currentCell.setUpCell(above);
 		}
-		if(lastRow) {
-			Cell firstCell=this.getCell(col, 0);
-			currentCell.setDownCell(firstCell);
+		if (row==this.size-1) {
+			Cell topCell=this.getCell(col, 0);
+			currentCell.setDownCell(topCell);
 		}
+		if (col==this.size-1) {
+			Cell leftEdgeCell=this.getCell(0, row);
+			currentCell.setRightCell(leftEdgeCell);
+		}
+		
 
 	}
 
@@ -95,34 +99,14 @@ public class OffsetGrid extends AbstractGameBoard {
 	}
 
 	public Iterator<Cell> iterator() {
-		return new Iterator<Cell>() {
-			private int col=0;
-			private int row=0;
-			private boolean hasNext=true;
-			
-			public boolean hasNext() {
-				return hasNext;
-			}
+		return this.getCells().iterator();
+	}
 
-			public Cell next() {
-				if ( !hasNext ) {
-					throw new NoSuchElementException();
-				}
-				Cell cell=cells[col][row++];
-				boolean even = col%2==0;
-				boolean lastRow = even ? (row>=size-1) : (row>=size);
-				if(lastRow) {
-					row=0;
-					col++;
-					if(col==size-1) hasNext=false;
-				}
-				return cell;
-			}
-
-			public void remove() {
-				throw new UnsupportedOperationException();
-			}
-			
-		};
+	public List<Cell> getCells() {
+		return Collections.unmodifiableList(cellList);
+	}
+	
+	public Dimension getPreferredSize() {
+		return new Dimension(ICON_SIZE*size, ICON_SIZE*size);
 	}
 }

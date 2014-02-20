@@ -23,10 +23,10 @@ public class TextUtils {
 	 * @param gridStrings
 	 * @return
 	 */
-	public IGameBoard getGridFromString2D(String[][] gridStrings) {
+	public Grid getGridFromString2D(String[][] gridStrings) {
 		ArgumentChecker.checkNulls("gridStrings", gridStrings);
 		int colCount=gridStrings.length;
-		OffsetGrid grid=new OffsetGrid(colCount);
+		Grid grid=new Grid(colCount);
 		for(int col=0; col<colCount; col++) {
 			String[] rowStrings=gridStrings[col];
 			int rowCount=rowStrings.length;
@@ -38,6 +38,10 @@ public class TextUtils {
 			}
 		}
 		return grid;
+	}
+
+	public OffsetGrid getOffsetGridFromString2D(String[][] gridStrings) {
+		return null;
 	}
 
 	/**
@@ -62,5 +66,4 @@ public class TextUtils {
 		}
 		return words;
 	}
-
 }

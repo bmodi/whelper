@@ -24,7 +24,8 @@ public class TextUtilsTest {
 
 	private TextUtils textUtils;
 
-	private IGameBoard grid;
+	private Grid grid;
+	private OffsetGrid offsetGrid;
 
 	private Cell cell00;
 	private Cell cell01;
@@ -46,11 +47,12 @@ public class TextUtilsTest {
 	public void setup() {
 		textUtils = TextUtils.getInstance();
 		grid = textUtils.getGridFromString2D(gridStrings);
-		cell00 = grid.getCellAt(0, 0);
-		cell01 = grid.getCellAt(0, 1);
-		cell02 = grid.getCellAt(0, 2);
+		offsetGrid = textUtils.getOffsetGridFromString2D(gridStrings);
+		cell00 = grid.getCell(0, 0);
+		cell01 = grid.getCell(0, 1);
+		cell02 = grid.getCell(0, 2);
 //		cell10 = grid.getCell(1, 0);
-		cell11 = grid.getCellAt(1, 1);
+		cell11 = grid.getCell(1, 1);
 //		cell12 = grid.getCell(1, 2);
 //		cell20 = grid.getCell(2, 0);
 //		cell21 = grid.getCell(2, 1);
@@ -75,7 +77,6 @@ public class TextUtilsTest {
 
 	@Test
 	public void getGridFromStrings2D() {
-//		assertEquals(3, grid.getSize());
 		assertEquals("h", cell01.getValue());
 		assertEquals("c", cell00.getValue());
 	}

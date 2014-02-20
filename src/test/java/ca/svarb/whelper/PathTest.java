@@ -23,7 +23,7 @@ public class PathTest {
 	
 	private TextUtils textUtils;
 
-	private IGameBoard grid;
+	private Grid grid;
 
 	private Cell cell00;
 	private Cell cell01;
@@ -39,15 +39,15 @@ public class PathTest {
 	public void setup() {
 		textUtils = TextUtils.getInstance();
 		grid = textUtils.getGridFromString2D(gridStrings);
-		cell00 = grid.getCellAt(0, 0);
-		cell01 = grid.getCellAt(0, 1);
-		cell02 = grid.getCellAt(0, 2);
-		cell10 = grid.getCellAt(1, 0);
-		cell11 = grid.getCellAt(1, 1);
-		cell12 = grid.getCellAt(1, 2);
+		cell00 = grid.getCell(0, 0);
+		cell01 = grid.getCell(0, 1);
+		cell02 = grid.getCell(0, 2);
+		cell10 = grid.getCell(1, 0);
+		cell11 = grid.getCell(1, 1);
+		cell12 = grid.getCell(1, 2);
 //		cell20 = grid.getCell(2, 0);
-		cell21 = grid.getCellAt(2, 1);
-		cell22 = grid.getCellAt(2, 2);
+		cell21 = grid.getCell(2, 1);
+		cell22 = grid.getCell(2, 2);
 		path2 = new Path();
 		path2.addCell(cell00);
 

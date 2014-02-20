@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ca.svarb</groupId>
 	<artifactId>whelper</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>1.2</version>
 	<name>Whelper</name>
 	<url>http://svarb.ca</url>

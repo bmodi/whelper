@@ -84,7 +84,7 @@ public class WhelperGui extends JFrame {
 	private static IGameBoard createGameBoard(String sizeStr) {
 		IGameBoard gameBoard=null;
 		if ( sizeStr.equals(BOOKWORM_STR) ) {
-			gameBoard=GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.OFFSET_GRID, 8);
+			gameBoard=GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.OFFSET_GRID, 7);
         } else if ( sizeStr.equals(SPELLTOWER_STR) ) {
             gameBoard=GameBoardFactory.getInstance().getGameBoard(GameBoardFactory.BoardType.GRID, 8, 11);
 		} else {
