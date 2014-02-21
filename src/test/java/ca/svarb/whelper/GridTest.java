@@ -17,12 +17,17 @@ public class GridTest {
                                              { "d", "o", "g" } };
 
 	private Grid wgrid;
+	private Grid grid;
+	private Cell cell00;
+	private Cell cell01;
 
 	@Before
 	public void setup() {
 		wgrid = new Grid(3);
 		wgrid.getCell(2,1).setValue("A");
-		//wgrid.getCell(0,0).setValue("");
+		grid = new Grid(gridStrings);
+		cell00 = grid.getCell(0, 0);
+		cell01 = grid.getCell(0, 1);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -35,6 +40,17 @@ public class GridTest {
 		new Grid(-1);
 	}
 
+	@Test
+	public void constructFromStrings2D() {
+		assertEquals("h", cell01.getValue());
+		assertEquals("c", cell00.getValue());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void constructFromStrings2DNotSquare() {
+		new Grid(new String[2][3]);
+	}	
+	
 	/**
 	 * Check that values and neighbours are set correctly
 	 */
@@ -154,7 +170,7 @@ public class GridTest {
 	
 	@Test
 	public void findWord() {
-		Grid grid = TextUtils.getInstance().getGridFromString2D(gridStrings);
+		Grid grid = new Grid(gridStrings);
 		Path wordPath = grid.findWord("hat");
 		assertEquals(3, wordPath.getCells().size());
 		assertSame(grid.getCell(0, 1), wordPath.getCells().get(0));

@@ -31,7 +31,7 @@ public class WordSearcherTest {
 	public void findWords() {
 		WordSearcher searcher = WordSearcher.getInstance();
 		Dictionary dictionary=new Dictionary(words);
-		IGameBoard grid=TextUtils.getInstance().getGridFromString2D(gridStrings);
+		IGameBoard grid=new Grid(gridStrings);
 		SortedSet<String> foundWords = searcher.findWords(dictionary, grid);
 		assertThat(foundWords, hasItems("cat","dog","cog","toga","dot","dogma","coat","hat","quick"));
 		assertEquals(9, foundWords.size()); // ensure no duplicates

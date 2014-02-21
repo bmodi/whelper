@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import ca.svarb.utils.ArgumentChecker;
+
 /**
  * A Grid stores a set of Cells in a square arrangement.
  * All Cells by default contain blank string ("").
@@ -34,9 +36,26 @@ public class Grid extends AbstractGameBoard implements Iterable<Cell> {
 	 * @param size
 	 */
 	public Grid(int size) {
-		if (size<1) throw new IllegalArgumentException("Grid.size must be positive - size="+size);
-		this.size=size;
-		initializeCells();
+		setSize(size);
+	}
+
+	/**
+	 * Create a Grid filled with given strings into the cells
+	 * @param gridStrings
+	 */
+	public Grid(String[][] gridStrings) {
+		ArgumentChecker.checkNulls("gridStrings", gridStrings);
+		setSize(gridStrings.length);
+		for(int col=0; col<size; col++) {
+			String[] rowStrings=gridStrings[col];
+			int rowCount=rowStrings.length;
+			if( rowCount!=size ) {
+				throw new IllegalArgumentException("TextUtils.getGridFromString2D: gridStrings argument must be square");
+			}
+			for(int row=0; row<rowCount; row++) {
+				cells[col][row].setValue(gridStrings[row][col]);
+			}
+		}
 	}
 
 	private void initializeCells() {
@@ -101,8 +120,9 @@ public class Grid extends AbstractGameBoard implements Iterable<Cell> {
 	}
 
 	public void setSize(int size) {
+		if (size<1) throw new IllegalArgumentException("Grid.size must be positive - size="+size);
 		this.size=size;
-		this.initializeCells();
+		initializeCells();
 	}
 
 	/**

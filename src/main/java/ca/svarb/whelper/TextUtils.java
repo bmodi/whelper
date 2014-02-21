@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import ca.svarb.utils.ArgumentChecker;
-
 public class TextUtils {
 
 	private static TextUtils instance;
@@ -15,29 +13,6 @@ public class TextUtils {
 			instance=new TextUtils();
 		}
 		return instance;
-	}
-
-	/**
-	 * Take a 2D array of Strings and convert it into a square
-	 * grid object with all the proper neighbour connections.
-	 * @param gridStrings
-	 * @return
-	 */
-	public Grid getGridFromString2D(String[][] gridStrings) {
-		ArgumentChecker.checkNulls("gridStrings", gridStrings);
-		int colCount=gridStrings.length;
-		Grid grid=new Grid(colCount);
-		for(int col=0; col<colCount; col++) {
-			String[] rowStrings=gridStrings[col];
-			int rowCount=rowStrings.length;
-			if( rowCount!=colCount ) {
-				throw new IllegalArgumentException("TextUtils.getGridFromString2D: gridStrings argument must be square");
-			}
-			for(int row=0; row<rowCount; row++) {
-				grid.getCell(col, row).setValue(gridStrings[row][col]);
-			}
-		}
-		return grid;
 	}
 
 	public OffsetGrid getOffsetGridFromString2D(String[][] gridStrings) {

@@ -1,6 +1,9 @@
 package ca.svarb.whelper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -21,8 +24,6 @@ public class PathTest {
                                              { "h", "o", "g" },
                                              { "d", "o", "g" } };
 	
-	private TextUtils textUtils;
-
 	private Grid grid;
 
 	private Cell cell00;
@@ -37,8 +38,7 @@ public class PathTest {
 
 	@Before
 	public void setup() {
-		textUtils = TextUtils.getInstance();
-		grid = textUtils.getGridFromString2D(gridStrings);
+		grid = new Grid(gridStrings);
 		cell00 = grid.getCell(0, 0);
 		cell01 = grid.getCell(0, 1);
 		cell02 = grid.getCell(0, 2);

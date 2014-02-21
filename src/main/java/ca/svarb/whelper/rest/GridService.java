@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ca.svarb.whelper.Dictionary;
 import ca.svarb.whelper.DictionaryLoader;
 import ca.svarb.whelper.IGameBoard;
-import ca.svarb.whelper.TextUtils;
 import ca.svarb.whelper.WordSearcher;
 import ca.svarb.whelper.gui.WhelperException;
 import ca.svarb.whelper.gui.WhelperGui;
@@ -37,7 +36,7 @@ public class GridService {
 	@ResponseBody
 	public SortedSet<String> getWords(@RequestBody Grid grid) {
 		System.out.println("grid="+grid);
-		IGameBoard board=TextUtils.getInstance().getGridFromString2D(grid.getCells());
+		IGameBoard board=new ca.svarb.whelper.Grid(grid.getCells());
 		SortedSet<String> words = WordSearcher.getInstance().findWords(dictionary, board);
 		return words;
 	}

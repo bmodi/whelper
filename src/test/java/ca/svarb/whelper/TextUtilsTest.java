@@ -28,7 +28,7 @@ public class TextUtilsTest {
 	private OffsetGrid offsetGrid;
 
 	private Cell cell00;
-	private Cell cell01;
+//	private Cell cell01;
 	private Cell cell02;
 //	private Cell cell10;
 	private Cell cell11;
@@ -46,10 +46,10 @@ public class TextUtilsTest {
 	@Before
 	public void setup() {
 		textUtils = TextUtils.getInstance();
-		grid = textUtils.getGridFromString2D(gridStrings);
+		grid = new Grid(gridStrings);
 		offsetGrid = textUtils.getOffsetGridFromString2D(gridStrings);
 		cell00 = grid.getCell(0, 0);
-		cell01 = grid.getCell(0, 1);
+//		cell01 = grid.getCell(0, 1);
 		cell02 = grid.getCell(0, 2);
 //		cell10 = grid.getCell(1, 0);
 		cell11 = grid.getCell(1, 1);
@@ -75,17 +75,6 @@ public class TextUtilsTest {
 		assertSame(textUtils1,textUtils2);
 	}
 
-	@Test
-	public void getGridFromStrings2D() {
-		assertEquals("h", cell01.getValue());
-		assertEquals("c", cell00.getValue());
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void getGridFromStrings2DNotSquare() {
-		textUtils.getGridFromString2D(new String[2][3]);
-	}
-	
 	@Test
 	public void getWords() {
 		Collection<String> foundWords = textUtils.getWords(path00, dictionary);
