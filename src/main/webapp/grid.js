@@ -42,5 +42,5 @@ function setCellText(row, col, text) {
 	textContext.textBaseline = 'middle';
 	textContext.fillText(text, col*cellSize+10+cellSize/2, row*cellSize+11+cellSize/2);
 	textContext.stroke();
-	generateWords();
+	generateWords("GRID");
 }

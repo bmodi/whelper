@@ -71,13 +71,13 @@ function fixRowColOutsideBoundaries() {
 	if ( currentCol>maxCol ) currentCol=0;
 }
 
-function generateWords() {
+function generateWords(gridType) {
 	var url = "api/grid";
 	var client = new XMLHttpRequest();
 
 	client.open("POST", url, false);
 	client.setRequestHeader("Content-Type", "application/json");
-	var grid={"gridType":"GRID", "cells":cells};
+	var grid={"gridType":gridType, "cells":cells};
 	client.send(JSON.stringify(grid));
 
 	if (client.status == 200) {

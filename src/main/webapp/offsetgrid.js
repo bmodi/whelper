@@ -20,8 +20,8 @@ function addHighlightCanvasClickListener() {
 		var rect = highlightCanvas.getBoundingClientRect();
 	    var x=event.x-rect.left-borderWidth;
 	    var y=event.y-rect.top-borderWidth;
-
         currentCol = (x/cellSize|0);
+		if(currentCol%2==1)y-=cellSize/2;
         currentRow = (y/cellSize|0);
         highlightCell(currentRow, currentCol);
     }, false);
@@ -29,22 +29,26 @@ function addHighlightCanvasClickListener() {
 
 function highlightCell(row, col) {
 	highlightContext.beginPath();
-	highlightContext.clearRect(0, 0, 420, 420);
+	highlightContext.clearRect(0, 0, 420, 440);
 	highlightContext.strokeStyle = "maroon";
 	highlightContext.lineWidth = 5;
-	highlightContext.rect(col*cellSize+10, row*cellSize+10, cellSize, cellSize);
+	var offset=0;
+	if(col%2==1)offset=cellSize/2;
+	highlightContext.rect(col*cellSize+10, row*cellSize+10+offset, cellSize, cellSize);
 	highlightContext.stroke();
 }
 
 function setCellText(row, col, text) {
 	cells[row][col]=text;
+	var offset=0;
+	if(col%2==1)offset=cellSize/2;
 	textContext.beginPath();
-	textContext.clearRect(col*cellSize+11, row*cellSize+11, cellSize-1, cellSize-1);
+	textContext.clearRect(col*cellSize+11, row*cellSize+11+offset, cellSize-1, cellSize-1);
 	textContext.fillStyle = "indigo";
 	textContext.font = "bold "+fontSize+"px Arial";
 	textContext.textAlign = 'center';
 	textContext.textBaseline = 'middle';
-	textContext.fillText(text, col*cellSize+10+cellSize/2, row*cellSize+11+cellSize/2);
+	textContext.fillText(text, col*cellSize+10+cellSize/2, row*cellSize+11+cellSize/2+offset);
 	textContext.stroke();
-	generateWords();
+	generateWords("OFFSET_GRID");
 }
