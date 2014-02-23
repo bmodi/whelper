@@ -42,37 +42,6 @@ function createEmptyCells() {
 	}
 }
 
-function drawBoard() {
-    var bw = 400;
-    var bh = 400;
-    
-    for (var x = 0; x <= bw; x += cellSize) {
-        gridContext.moveTo(0.5 + x + borderWidth, borderWidth);
-        gridContext.lineTo(0.5 + x + borderWidth, bh + borderWidth);
-    }
-
-
-    for (var x = 0; x <= bh; x += cellSize) {
-        gridContext.moveTo(borderWidth, 0.5 + x + borderWidth);
-        gridContext.lineTo(bw + borderWidth, 0.5 + x + borderWidth);
-    }
-
-    gridContext.strokeStyle = "black";
-    gridContext.stroke();
-}
-
-function addHighlightCanvasClickListener() {
-	highlightCanvas.addEventListener('click', function (event) {
-		var rect = highlightCanvas.getBoundingClientRect();
-	    var x=event.x-rect.left-borderWidth;
-	    var y=event.y-rect.top-borderWidth;
-
-        currentCol = (x/cellSize|0);
-        currentRow = (y/cellSize|0);
-        highlightCell(currentRow, currentCol);
-    }, false);
-}
-
 function addHighlightCanvasKeyListener() {
 	highlightCanvas.addEventListener('keydown', function (event) {
 		keyCode=event.keyCode;
@@ -100,28 +69,6 @@ function fixRowColOutsideBoundaries() {
 	if ( currentCol<0 ) currentCol=maxCol;
 	if ( currentRow>maxRow ) currentRow=0;
 	if ( currentCol>maxCol ) currentCol=0;
-}
-
-function highlightCell(row, col) {
-	highlightContext.beginPath();
-	highlightContext.clearRect(0, 0, 420, 420);
-	highlightContext.strokeStyle = "maroon";
-	highlightContext.lineWidth = 5;
-	highlightContext.rect(col*cellSize+10, row*cellSize+10, cellSize, cellSize);
-	highlightContext.stroke();
-}
-
-function setCellText(row, col, text) {
-	cells[row][col]=text;
-	textContext.beginPath();
-	textContext.clearRect(col*cellSize+11, row*cellSize+11, cellSize-1, cellSize-1);
-	textContext.fillStyle = "indigo";
-	textContext.font = "bold "+fontSize+"px Arial";
-	textContext.textAlign = 'center';
-	textContext.textBaseline = 'middle';
-	textContext.fillText(text, col*cellSize+10+cellSize/2, row*cellSize+11+cellSize/2);
-	textContext.stroke();
-	generateWords();
 }
 
 function generateWords() {

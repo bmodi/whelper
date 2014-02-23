@@ -15,7 +15,7 @@ canvas {
     position: relative;
 }
 
-#grid {
+#gameboard {
 	background: steelblue;
 	position: absolute;
 	left: 0;

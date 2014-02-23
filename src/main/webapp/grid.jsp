@@ -1,6 +1,7 @@
 <html>
     <head>
         <script src="game.js"></script>
+        <script src="grid.js"></script>
         <link href="default.css" type="text/css" rel="stylesheet" />
     </head>
     <body onload="initGame();">
