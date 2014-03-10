@@ -1,11 +1,20 @@
 package ca.svarb.whelper;
 
+import static ca.svarb.whelper.gui.GuiConsts.ICON_SIZE;
+
+import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import ca.svarb.utils.ArgumentChecker;
 
-public abstract class AbstractGameBoard extends ArrayList<Cell> implements IGameBoard {
+public abstract class AbstractGridGameBoard extends ArrayList<Cell> implements IGameBoard {
+
+	protected int size;
+	protected Cell[][] cells = null;
+	protected List<Cell> cellList = null;
 
 	/**
 	 * Return a list of paths each
@@ -80,6 +89,23 @@ public abstract class AbstractGameBoard extends ArrayList<Cell> implements IGame
 			}				
 		}
 		return foundCell;
+	}
+
+	/**
+	 * The iterator will traverse rows down a column first
+	 * then over the next column once all the rows in the
+	 * column are returned.
+	 */
+	public Iterator<Cell> iterator() {
+		return this.getCells().iterator();
+	}
+
+	public List<Cell> getCells() {
+		return Collections.unmodifiableList(cellList);
+	}
+
+	public Dimension getPreferredSize() {
+		return new Dimension(ICON_SIZE*size, ICON_SIZE*size);
 	}
 
 }

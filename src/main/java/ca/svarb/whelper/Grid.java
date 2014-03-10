@@ -1,12 +1,6 @@
 package ca.svarb.whelper;
 
-import static ca.svarb.whelper.gui.GuiConsts.ICON_SIZE;
-
-import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 import ca.svarb.utils.ArgumentChecker;
 
@@ -16,11 +10,7 @@ import ca.svarb.utils.ArgumentChecker;
  * Cells can be accessed by [col,row] values (0 indexed)
  * or iterated through.
  */
-public class Grid extends AbstractGameBoard implements Iterable<Cell> {
-
-	private int size;
-	private Cell[][] cells=null;
-	private List<Cell> cellList=null;
+public class Grid extends AbstractGridGameBoard {
 
 	/**
 	 * Makes a grid with default size of 5
@@ -123,22 +113,5 @@ public class Grid extends AbstractGameBoard implements Iterable<Cell> {
 		if (size<1) throw new IllegalArgumentException("Grid.size must be positive - size="+size);
 		this.size=size;
 		initializeCells();
-	}
-
-	/**
-	 * The iterator will traverse rows down a column first
-	 * then over the next column once all the rows in the
-	 * column are returned.
-	 */
-	public Iterator<Cell> iterator() {
-		return this.getCells().iterator();
-	}
-
-	public List<Cell> getCells() {
-		return Collections.unmodifiableList(cellList);
-	}
-	
-	public Dimension getPreferredSize() {
-		return new Dimension(ICON_SIZE*size, ICON_SIZE*size);
 	}
 }

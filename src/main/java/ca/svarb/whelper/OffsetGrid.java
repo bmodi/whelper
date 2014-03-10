@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * An OffsetGrid stores a set of Cells in an set of
@@ -15,11 +14,7 @@ import java.util.List;
  * Cells can be accessed by [col,row] values (0 indexed)
  * or iterated through.
  */
-public class OffsetGrid extends AbstractGameBoard {
-
-	private int size;
-	private Cell[][] cells=null;
-	private List<Cell> cellList=null;
+public class OffsetGrid extends AbstractGridGameBoard {
 
 	/**
 	 * Make an offset-square grid of blank Cells.
@@ -97,15 +92,4 @@ public class OffsetGrid extends AbstractGameBoard {
 		return size;
 	}
 
-	public Iterator<Cell> iterator() {
-		return this.getCells().iterator();
-	}
-
-	public List<Cell> getCells() {
-		return Collections.unmodifiableList(cellList);
-	}
-	
-	public Dimension getPreferredSize() {
-		return new Dimension(ICON_SIZE*size, ICON_SIZE*size);
-	}
 }
