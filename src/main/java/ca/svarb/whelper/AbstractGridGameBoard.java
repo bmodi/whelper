@@ -1,7 +1,5 @@
 package ca.svarb.whelper;
 
-import static ca.svarb.whelper.gui.GuiConsts.ICON_SIZE;
-
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +10,7 @@ import ca.svarb.utils.ArgumentChecker;
 
 public abstract class AbstractGridGameBoard extends ArrayList<Cell> implements IGameBoard {
 
+	private static final int ICON_SIZE = 40;
 	protected int size;
 	protected Cell[][] cells = null;
 	protected List<Cell> cellList = null;

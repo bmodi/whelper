@@ -15,8 +15,7 @@ import ca.svarb.whelper.Dictionary;
 import ca.svarb.whelper.DictionaryLoader;
 import ca.svarb.whelper.IGameBoard;
 import ca.svarb.whelper.WordSearcher;
-import ca.svarb.whelper.gui.WhelperException;
-import ca.svarb.whelper.gui.WhelperGui;
+import ca.svarb.whelper.WhelperException;
 
 @Controller
 @RequestMapping("/grid")
@@ -53,7 +52,7 @@ public class GridService {
 		String dictionaryName = "TWL06.txt";
 		
 		try {
-			InputStream dictionaryStream = WhelperGui.class.getClassLoader().getResourceAsStream(dictionaryName);
+			InputStream dictionaryStream = GridService.class.getClassLoader().getResourceAsStream(dictionaryName);
 			if ( dictionaryStream==null ) throw new WhelperException("Could not find dictionary file: "+dictionaryName);
 			dictionary=DictionaryLoader.getInstance().loadFromReader(new InputStreamReader(dictionaryStream));
 		} catch (IOException e) {
