@@ -36,7 +36,15 @@ public class GridService {
 	@ResponseBody
 	public SortedSet<String> getWords(@RequestBody Grid grid) {
 		System.out.println("grid="+grid);
-		IGameBoard board=new ca.svarb.whelper.Grid(grid.getCells());
+		IGameBoard board=null;
+		if ( grid.getGridType()==Grid.GridType.GRID ) {
+			board=new ca.svarb.whelper.Grid(grid.getCells());
+		} else {
+			// This constructor does not exist yet for OffsetGrid
+			// board=new ca.svarb.whelper.OffsetGrid(grid.getCells());
+			// TODO:  Implement OffsetGrid(String[][] gridStrings) 
+			board=new ca.svarb.whelper.OffsetGrid(grid.getCells().length);
+		}
 		SortedSet<String> words = WordSearcher.getInstance().findWords(dictionary, board);
 		return words;
 	}

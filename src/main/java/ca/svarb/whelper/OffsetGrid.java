@@ -1,11 +1,8 @@
 package ca.svarb.whelper;
 
-import static ca.svarb.whelper.gui.GuiConsts.ICON_SIZE;
-
-import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
+
+import ca.svarb.utils.ArgumentChecker;
 
 /**
  * An OffsetGrid stores a set of Cells in an set of
@@ -38,6 +35,26 @@ public class OffsetGrid extends AbstractGridGameBoard {
 				initializeNeighbours(col, row);
 			}
 		}
+	}
+
+	/**
+	 * Create an OffsetGrid filled with given strings into the cells
+	 * @param gridStrings
+	 */
+	public OffsetGrid(String[][] gridStrings) {
+		ArgumentChecker.checkNulls("gridStrings", gridStrings);
+		// Implementation copied from Grid
+//		setSize(gridStrings.length);
+//		for(int col=0; col<size; col++) {
+//			String[] rowStrings=gridStrings[col];
+//			int rowCount=rowStrings.length;
+//			if( rowCount!=size ) {
+//				throw new IllegalArgumentException("TextUtils.getGridFromString2D: gridStrings argument must be square");
+//			}
+//			for(int row=0; row<rowCount; row++) {
+//				cells[col][row].setValue(gridStrings[row][col]);
+//			}
+//		}
 	}
 
 	private void initializeNeighbours(int col, int row) {
