@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import ca.svarb.utils.ArgumentChecker;
 
@@ -14,16 +13,12 @@ import ca.svarb.utils.ArgumentChecker;
  * - a holder for a cell value
  *   --> Cell value cannot be null
  *   --> Cell default value is empty string ("")
- * - has a (x,y) position
  * - knows it's neighbours
  * - can return which cell to navigate to on
  *   each of "left, right, up, down" directions
  *
  */
-@XmlRootElement
 public class Cell {
-
-	public static final int CELL_WIDTH = 40;
 
 	private String value;
 	private Set<Cell> neighbours=new HashSet<Cell>();
@@ -32,32 +27,14 @@ public class Cell {
 	private Cell rightCell=null;
 	private Cell upCell=null;
 	private Cell downCell=null;
-	private int x;
-	private int y;
 
 	public Cell() {
 		this("");
 	}
 	
-	/**
-	 * Construct a default Cell containing blank string ("") at (0,0)
-	 */
 	public Cell(String value) {
-		this(value, 0, 0);
-	}
-	
-	/**
-	 * Construct a Cell containing blank string ("")
-	 */
-	public Cell(int x, int y) {
-		this("", x, y);
-	}
-
-	public Cell(String value, int x, int y) {
 		ArgumentChecker.checkNulls("value", value);
 		this.value=value;
-		this.x=x;
-		this.y=y;
 	}
 
 	public void addNeighbour(Cell newNeighbour) {
@@ -88,14 +65,6 @@ public class Cell {
 		this.selected=value;
 	}
 
-
-	public int getX() {
-		return this.x;
-	}
-	public int getY() {
-		return this.y;
-	}
-	
 	public String toString() {
 		return this.value;
 	}

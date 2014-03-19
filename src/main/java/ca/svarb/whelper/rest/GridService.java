@@ -42,7 +42,7 @@ public class GridService {
 			// This constructor does not exist yet for OffsetGrid
 			// board=new ca.svarb.whelper.OffsetGrid(grid.getCells());
 			// TODO:  Implement OffsetGrid(String[][] gridStrings) 
-			board=new ca.svarb.whelper.OffsetGrid(grid.getCells().length);
+			board=new ca.svarb.whelper.OffsetGrid(grid.getCells());
 		}
 		SortedSet<String> words = WordSearcher.getInstance().findWords(dictionary, board);
 		return words;

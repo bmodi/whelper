@@ -1,8 +1,5 @@
 package ca.svarb.whelper;
 
-import java.util.ArrayList;
-
-import ca.svarb.utils.ArgumentChecker;
 
 /**
  * A Grid stores a set of Cells in a square arrangement.
@@ -26,6 +23,7 @@ public class Grid extends AbstractGridGameBoard {
 	 * @param size
 	 */
 	public Grid(int size) {
+		super();
 		setSize(size);
 	}
 
@@ -34,31 +32,7 @@ public class Grid extends AbstractGridGameBoard {
 	 * @param gridStrings
 	 */
 	public Grid(String[][] gridStrings) {
-		ArgumentChecker.checkNulls("gridStrings", gridStrings);
-		setSize(gridStrings.length);
-		for(int col=0; col<size; col++) {
-			String[] rowStrings=gridStrings[col];
-			int rowCount=rowStrings.length;
-			if( rowCount!=size ) {
-				throw new IllegalArgumentException("TextUtils.getGridFromString2D: gridStrings argument must be square");
-			}
-			for(int row=0; row<rowCount; row++) {
-				cells[col][row].setValue(gridStrings[row][col]);
-			}
-		}
-	}
-
-	private void initializeCells() {
-		cells=new Cell[size][size];
-		cellList=new ArrayList<Cell>(size*size);
-		for (int col = 0; col < size; col++) {
-			for (int row = 0; row < size; row++) {
-				Cell currentCell=new Cell(col*Cell.CELL_WIDTH, row*Cell.CELL_WIDTH);
-				cells[col][row]=currentCell;
-				cellList.add(currentCell);
-				initCell(col, row);
-			}
-		}
+		super(gridStrings);
 	}
 
 	/**
@@ -66,7 +40,8 @@ public class Grid extends AbstractGridGameBoard {
 	 * @param col
 	 * @param row
 	 */
-	private void initCell(int col, int row) {
+	@Override
+	protected void initCell(int col, int row) {
 		Cell currentCell=this.getCell(col, row);
 		
 		if(col>0) {
@@ -97,21 +72,5 @@ public class Grid extends AbstractGridGameBoard {
 			currentCell.setRightCell(leftEdgeCell);
 		}
 
-	}
-
-	public Cell getCell(int col, int row) {
-		if ( col<0 || col>=size ) throw new IllegalArgumentException("Cell.getCell col out of range: size="+size+", col="+col);
-		if ( row<0 || row>=size ) throw new IllegalArgumentException("Cell.getCell row out of range: size="+size+", row="+row);
-		return cells[col][row];
-	}
-
-	public int getSize() {
-		return size;
-	}
-
-	public void setSize(int size) {
-		if (size<1) throw new IllegalArgumentException("Grid.size must be positive - size="+size);
-		this.size=size;
-		initializeCells();
 	}
 }
