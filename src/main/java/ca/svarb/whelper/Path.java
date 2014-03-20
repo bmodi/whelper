@@ -82,13 +82,4 @@ public class Path {
 	public String toString() {
 		return this.getWord();
 	}
-	
-	/**
-	 * Sets all cells in the path to "selected"
-	 */
-	public void highlight() {
-		for( Cell cell: cells) {
-			cell.setSelected(true);
-		}
-	}
 }
