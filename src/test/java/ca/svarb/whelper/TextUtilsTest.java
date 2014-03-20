@@ -45,9 +45,9 @@ public class TextUtilsTest {
 
 	@Before
 	public void setup() {
-		textUtils = TextUtils.getInstance();
+		textUtils = new TextUtils();
 		grid = new Grid(gridStrings);
-		offsetGrid = textUtils.getOffsetGridFromString2D(gridStrings);
+		offsetGrid = new OffsetGrid(gridStrings);
 		cell00 = grid.getCell(0, 0);
 //		cell01 = grid.getCell(0, 1);
 		cell02 = grid.getCell(0, 2);
@@ -65,14 +65,6 @@ public class TextUtilsTest {
 		path02.addCell(cell02);
 		
 		dictionary=new Dictionary(words);
-	}
-
-	@Test
-	public void singleton() {
-		TextUtils textUtils1 = TextUtils.getInstance();
-		TextUtils textUtils2 = TextUtils.getInstance();
-		assertNotNull(textUtils1);
-		assertSame(textUtils1,textUtils2);
 	}
 
 	@Test

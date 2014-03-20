@@ -4,20 +4,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class TextUtils {
-
-	private static TextUtils instance;
-
-	public static TextUtils getInstance() {
-		if ( instance==null ) {
-			instance=new TextUtils();
-		}
-		return instance;
-	}
-
-	public OffsetGrid getOffsetGridFromString2D(String[][] gridStrings) {
-		return null;
-	}
 
 	/**
 	 * Get a set of unique words starting with the given

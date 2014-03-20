@@ -7,8 +7,18 @@ import static org.junit.Assert.*;
 import java.util.SortedSet;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.junit.runner.RunWith;
+import org.junit.Test;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 public class WordSearcherTest {
+
+	@Autowired
+	private WordSearcher searcher;
 
 	public static String[][] gridStrings = { { "c",  "a", "t", "x" },
                                              { "h",  "o", "g", "a" },
@@ -18,18 +28,8 @@ public class WordSearcherTest {
 	// 2 letter words will be ignored
     public static String[] words={"cat", "dog", "do", "go", "cog", "dogma", "quick", "toga", "dot", "coat", "hat", "fox"};
 
-	
-	@Test
-	public void singleton() {
-		WordSearcher instance1 = WordSearcher.getInstance();
-		WordSearcher instance2 = WordSearcher.getInstance();
-		assertNotNull(instance1);
-		assertSame(instance1,instance2);
-	}
-	
 	@Test
 	public void findWords() {
-		WordSearcher searcher = WordSearcher.getInstance();
 		Dictionary dictionary=new Dictionary(words);
 		IGameBoard grid=new Grid(gridStrings);
 		SortedSet<String> foundWords = searcher.findWords(dictionary, grid);

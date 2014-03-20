@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.SortedSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,9 @@ import ca.svarb.whelper.WhelperException;
 public class GridService {
 
 	private Dictionary dictionary=null;
+	
+	@Autowired
+	private WordSearcher wordSearcher;
 
 	public GridService() {
 		try {
@@ -39,12 +43,9 @@ public class GridService {
 		if ( grid.getGridType()==Grid.GridType.GRID ) {
 			board=new ca.svarb.whelper.Grid(grid.getCells());
 		} else {
-			// This constructor does not exist yet for OffsetGrid
-			// board=new ca.svarb.whelper.OffsetGrid(grid.getCells());
-			// TODO:  Implement OffsetGrid(String[][] gridStrings) 
 			board=new ca.svarb.whelper.OffsetGrid(grid.getCells());
 		}
-		SortedSet<String> words = WordSearcher.getInstance().findWords(dictionary, board);
+		SortedSet<String> words = wordSearcher.findWords(dictionary, board);
 		return words;
 	}
 	
