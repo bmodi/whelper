@@ -1,9 +1,9 @@
 package ca.svarb.whelper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ca.svarb.whelper.GameBoardFactory.BoardType;
@@ -25,13 +25,6 @@ public class GameBoardFactoryTest {
 	@Test
 	public void getGameboardGrid_Square() {
 		IGameBoard gameBoard = factory.getGameBoard(BoardType.GRID, 3);
-		assertTrue(gameBoard instanceof Grid);
-	}
-
-	@Test
-	@Ignore // Currently only square boards are supported
-	public void getGameboardGrid_Rectangle() {
-		IGameBoard gameBoard = factory.getGameBoard(BoardType.GRID, 3, 4);
 		assertTrue(gameBoard instanceof Grid);
 	}
 
