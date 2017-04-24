@@ -19,7 +19,7 @@ Whelper currently supports a single API, exposed at:
 
 http://localhost:8080/api/grid
 
-The API accepts a POST operation with a JSON body with two elements - `gridType` and `cells`.  `gridType` must be `GRID` for now and `cells` must be a 2-D array of strings which must be square.  The API will return a list of strings that can be made from a grid with the given input cells.  Cells may be empty and can contain more than one character.
+The API accepts a POST operation with a JSON body with two elements - `gridType` and `cells`.  `gridType` may be either `GRID` or `OFFSET_GRID` and `cells` must be a 2-D array of strings which must be square.  The API will return a list of strings that can be made from a grid with the given input cells.  Cells may be empty and can contain more than one character.
 
 Example input:
 
