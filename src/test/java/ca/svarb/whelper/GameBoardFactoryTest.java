@@ -29,13 +29,6 @@ public class GameBoardFactoryTest {
 	}
 
 	@Test
-	@Ignore // Currently only square boards are supported
-	public void getGameboardGrid_Rectangle() {
-		IGameBoard gameBoard = factory.getGameBoard(BoardType.GRID, 3, 4);
-		assertTrue(gameBoard instanceof Grid);
-	}
-
-	@Test
 	public void getGameboardOffsetGrid() {
 		IGameBoard gameBoard = factory.getGameBoard(BoardType.OFFSET_GRID, 6);
 		assertTrue(gameBoard instanceof OffsetGrid);
