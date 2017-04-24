@@ -1,5 +1,9 @@
 = Whelper =
 
+Whelper is a Java web application that assists users in finding words for games using letter grid such as Boggle or Bookworm.  There is a Javascript UI that allows a user to enter the letters in either grid, as well as an API that can be used to automatically process input grids of either type.
+
+== Build and Run ==
+
 To build and start whelper:
 
 [source,bash]
@@ -13,7 +17,7 @@ http://localhost:8080/grid.jsp
 
 The war file can also be deployed to tomcat as is.  `whelper-1.2.war` would be exploded as `whelper` in the tomcat `webapps` folder.
 
-= API =
+== API ==
 
 Whelper currently supports a single API, exposed at:
 
