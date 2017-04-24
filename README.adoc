@@ -21,6 +21,7 @@ Whelper requires Java 1.8 and Maven 3 to build.  On a platform with prerequisite
 Once the jetty server starts navigate to one of the grid pages:
 
 http://localhost:8080/grid.jsp
+
 http://localhost:8080/offsetgrid.jsp
 
 The war file generated in the `target` directory can also be deployed to tomcat as is.  `whelper-1.2.war` would be exploded as `whelper` in the tomcat `webapps` folder.
