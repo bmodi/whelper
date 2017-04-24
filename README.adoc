@@ -1,0 +1,37 @@
+= Whelper =
+
+To build and start whelper:
+
+[source,bash]
+----
+  mvn package jetty:run
+----
+  
+Once jetty server starts navigate to:
+
+http://localhost:8080/grid.jsp
+
+The war file can also be deployed to tomcat as is.  `whelper-1.2.war` would be exploded as `whelper` in the tomcat `webapps` folder.
+
+= API =
+
+Whelper currently supports a single API, exposed at:
+
+http://localhost:8080/api/grid
+
+The API accepts a POST operation with the following body:
+
+[source,json]
+----
+{"gridType":"GRID",
+ "cells": [ ["C","A","Q","","","","","","",""],
+            ["B","L","O","","","","","","",""],
+            ["","","","","","","","","",""],
+            ["","","","","","","","","",""],
+            ["","","","","","","","","",""],
+            ["","","","","","","","","",""],
+            ["","","","","","","","","",""],
+            ["","","","","","","","","",""],
+            ["","","","","","","","","",""],
+            ["","","","","","","","","",""] ] }
+----
