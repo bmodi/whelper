@@ -1,10 +1,12 @@
 <html>
     <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>        
         <script src="game.js"></script>
         <script src="grid.js"></script>
         <link href="default.css" type="text/css" rel="stylesheet" />
     </head>
     <body onload="initGame();">
+
     <div id="wrapper">
         <div id="grid">
                 <canvas id="gridCanvas" width="420px" height="420px" style="background: #eee; z-index: 0;"></canvas>
@@ -33,6 +35,11 @@
 			<div id="debug-message">debug</div>
         </div>
     </div>
+    
+    <script>
+</script>
+    
+    
     </body>
 </html>
 

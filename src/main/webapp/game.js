@@ -100,9 +100,12 @@ function generateWords(gridType) {
 
 function filterWordsByLength() {
     if (document.getElementById("word-length-filter").value == "0"){
-        document.getElementById("debug-message").innerHTML = "Clear";
+    	$( "#debug-message" ).css( "border", "3px solid red" );
+//        document.getElementById("debug-message").innerHTML = "Clear";
     }     
     else{
-        document.getElementById("debug-message").innerHTML = document.getElementById("word-length-filter").value;
+    	$( "#debug-message" ).css( "border", "3px solid yellow" );
+    	$( "#debug-message" ).text( "hello" );
+//    	document.getElementById("debug-message").innerHTML = document.getElementById("word-length-filter").value;
     }        
 }
