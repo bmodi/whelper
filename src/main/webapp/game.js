@@ -97,3 +97,12 @@ function generateWords(gridType) {
 	    alert("The request did not succeed!\n\nThe response status was: " + client.status + " " + client.statusText + ".");
 
 }
+
+function filterWordsByLength() {
+    if (document.getElementById("word-length-filter").value == "0"){
+        document.getElementById("debug-message").innerHTML = "Clear";
+    }     
+    else{
+        document.getElementById("debug-message").innerHTML = document.getElementById("word-length-filter").value;
+    }        
+}
