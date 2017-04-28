@@ -15,6 +15,7 @@
 			<select id="wordList" size="25" style="width: 100%">
 			</select>
 			<label>Filter by word length:  <select>
+				<option value="0">Show all</option>
 				<option value="3">3</option>
 				<option value="3">4</option>
 				<option value="3">5</option>
