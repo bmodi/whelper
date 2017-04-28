@@ -14,6 +14,21 @@
         <div id="controls">
 			<select id="wordList" size="25" style="width: 100%">
 			</select>
+			<label>Filter by word length:  <select>
+				<option value="3">3</option>
+				<option value="3">4</option>
+				<option value="3">5</option>
+				<option value="3">6</option>
+				<option value="3">7</option>
+				<option value="3">8</option>
+				<option value="3">9</option>
+				<option value="3">10</option>
+				<option value="3">11</option>
+				<option value="3">12</option>
+				<option value="3">13</option>
+				<option value="3">14</option>
+				<option value="3">15</option>
+			</select></label>		
         </div>
     </div>
     </body>
