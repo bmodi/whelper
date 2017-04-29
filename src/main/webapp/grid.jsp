@@ -14,8 +14,7 @@
                 <canvas id="highlightCanvas" tabindex="0" width="420px" height="420px" style="z-index: 2;"></canvas>
         </div>
         <div id="controls">
-			<select id="wordList" size="25" style="width: 100%">
-			</select>
+			<ul id="words"></ul>
 			<label>Filter by word length:  <select id="word-length-filter" onchange="filterWordsByLength()">
 				<option value="0">Show all</option>
 				<option value="3">3</option>
@@ -31,8 +30,7 @@
 				<option value="13">13</option>
 				<option value="14">14</option>
 				<option value="15">15</option>
-			</select></label>		
-			<div id="debug-message">debug</div>
+			</select></label>
         </div>
     </div>
     

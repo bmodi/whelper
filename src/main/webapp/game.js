@@ -82,15 +82,10 @@ function generateWords(gridType) {
 
 	if (client.status == 200) {
 	    var words = JSON.parse(client.responseText);
-        var select = document.getElementById("wordList");
-        select.innerHTML = "";
+        $("#words").text("");
         for (var i = 0; i < words.length; i++) {
 	    	console.log("word "+i+": "+words[i]);
-            var opt = words[i];
-            var el = document.createElement("option");
-            el.textContent = opt;
-            el.value = opt;
-            select.appendChild(el);
+	    	$("#words").append($("<li>").text(words[i]));
         }
 	}	
 	else
@@ -99,13 +94,13 @@ function generateWords(gridType) {
 }
 
 function filterWordsByLength() {
-    if (document.getElementById("word-length-filter").value == "0"){
-    	$( "#debug-message" ).css( "border", "3px solid red" );
-//        document.getElementById("debug-message").innerHTML = "Clear";
-    }     
-    else{
-    	$( "#debug-message" ).css( "border", "3px solid yellow" );
-    	$( "#debug-message" ).text( "hello" );
-//    	document.getElementById("debug-message").innerHTML = document.getElementById("word-length-filter").value;
+	var filterLength=document.getElementById("word-length-filter").value;
+	$( "li" ).show();
+	if ( filterLength != "0"){
+    	$( "li" )
+    	  .filter(function( index ) {
+    	    return this.textContent.length!=filterLength;
+    	  }).hide(); 
     }        
 }
+
