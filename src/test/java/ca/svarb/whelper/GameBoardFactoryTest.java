@@ -3,7 +3,6 @@ package ca.svarb.whelper;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ca.svarb.whelper.GameBoardFactory.BoardType;
