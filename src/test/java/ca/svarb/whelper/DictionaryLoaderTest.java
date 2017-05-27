@@ -63,7 +63,6 @@ public class DictionaryLoaderTest {
 		assertTrue(dictionary.hasWord("world"));
 	}
 
-	@Ignore("temp disabled")
 	@Test
 	public void loadFromLargeFile() throws IOException {
 		InputStream stream = DictionaryLoaderTest.class.getClassLoader().getResourceAsStream("TWL06.txt");
