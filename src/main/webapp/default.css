@@ -1,5 +1,10 @@
 body {
 	background: steelblue;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+label {
+    color: yellow;
 }
 
 canvas {
@@ -28,4 +33,16 @@ canvas {
 	right: 0;
 	top: 0;
 	width: 250px;
+	line-height: 2.0em;
 }
+
+ul {
+    background: white;
+    padding: 10px;
+    list-style-type: none;
+    line-height: 1.0em;   
+    height: 200px;
+	max-height:200px;
+	overflow:auto;
+}
+

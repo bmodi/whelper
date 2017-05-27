@@ -1,0 +1,59 @@
+= Whelper =
+
+Whelper is a Java web application that assists users in finding words for games using a letter grid such as Boggle or Bookworm.  There is a Javascript UI that allows a user to enter the letters in either grid, as well as an API that can be used to automatically process input grids of either type.
+
+== Build and Run ==
+
+Obtain source code from git using a command such as:
+
+[source,bash]
+----
+  https://github.com/bmodi/whelper.git 
+----
+
+Whelper requires Java 1.8 and Maven 3 to build.  On a platform with prerequisites installed, to build and start whelper:
+
+[source,bash]
+----
+  mvn package jetty:run
+----
+  
+Once the jetty server starts navigate to one of the grid pages:
+
+http://localhost:8080/grid.jsp
+
+http://localhost:8080/offsetgrid.jsp
+
+The war file generated in the `target` directory can also be deployed to tomcat as is.  `whelper-1.2.war` would be exploded as `whelper` in the tomcat `webapps` folder.
+
+== API ==
+
+Whelper currently supports a single API, exposed at:
+
+http://localhost:8080/api/grid
+
+The API accepts a POST operation with a JSON body with two elements - `gridType` and `cells`.  `gridType` may be either `GRID` or `OFFSET_GRID` and `cells` must be a 2-D array of strings which must be square.  The API will return a list of strings that can be made from a grid with the given input cells.  Cells may be empty and can contain more than one character.
+
+Example input:
+
+[source,json]
+----
+{"gridType":"GRID",
+ "cells": [ ["C","A","QU"],
+            ["","S","O"],
+            ["A","T",""] ] }
+----
+
+results in the following return:
+
+[source,json]
+----
+["CASA","CAST","OAST","QUA","QUOTA","QUOTAS","SAC","SAT","SOT","STOA","TAS"]
+----
+
+== Word Lists ==
+
+Whelper uses words lists from:
+
+ * https://www.bestwordlist.com
+ * https://www.wordgamedictionary.com/twl06/
