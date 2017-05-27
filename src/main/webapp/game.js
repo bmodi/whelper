@@ -82,18 +82,25 @@ function generateWords(gridType) {
 
 	if (client.status == 200) {
 	    var words = JSON.parse(client.responseText);
-        var select = document.getElementById("wordList");
-        select.innerHTML = "";
+        $("#words").text("");
         for (var i = 0; i < words.length; i++) {
 	    	console.log("word "+i+": "+words[i]);
-            var opt = words[i];
-            var el = document.createElement("option");
-            el.textContent = opt;
-            el.value = opt;
-            select.appendChild(el);
+	    	$("#words").append($("<li>").text(words[i]));
         }
 	}	
 	else
 	    alert("The request did not succeed!\n\nThe response status was: " + client.status + " " + client.statusText + ".");
 
 }
+
+function filterWordsByLength() {
+	var filterLength=document.getElementById("word-length-filter").value;
+	$( "li" ).show();
+	if ( filterLength != "0"){
+    	$( "li" )
+    	  .filter(function( index ) {
+    	    return this.textContent.length!=filterLength;
+    	  }).hide(); 
+    }        
+}
+

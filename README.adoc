@@ -50,3 +50,10 @@ results in the following return:
 ----
 ["CASA","CAST","OAST","QUA","QUOTA","QUOTAS","SAC","SAT","SOT","STOA","TAS"]
 ----
+
+== Word Lists ==
+
+Whelper uses words lists from:
+
+ * https://www.bestwordlist.com
+ * https://www.wordgamedictionary.com/twl06/
