@@ -16,7 +16,6 @@ canvas {
 #wrapper {
     max-width: 700px;
     margin: auto;
-    background: red;
     position: relative;
 }
 
@@ -41,8 +40,8 @@ ul {
     padding: 10px;
     list-style-type: none;
     line-height: 1.0em;   
-    height: 200px;
-	max-height:200px;
+    height: 300px;
+	max-height:300px;
 	overflow:auto;
 }
 
