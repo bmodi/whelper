@@ -7,10 +7,6 @@ import org.junit.Test;
 
 public class OffsetGridTest {
 
-	public static String[][] gridStrings = { { "c", "a", "t" },
-                                             { "h", "o", "g" },
-                                             { "d", "o", "g" } };
-
 	private OffsetGrid wgrid;
 
 	@Before
