@@ -44,7 +44,8 @@ public class GridService {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
 	public SortedSet<String> getWords(@RequestBody Grid grid) {
-		logger.error("grid="+grid);
+		logger.error("grid err="+grid);
+		logger.info("grid info="+grid);
 		IGameBoard board=null;
 		if ( grid.getGridType()==Grid.GridType.GRID ) {
 			board=new ca.svarb.whelper.Grid(grid.getCells());
