@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.SortedSet;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +30,9 @@ public class GridService {
 	@Autowired
 	private WordSearcher wordSearcher;
 
+	// Log4j2
+	Logger logger = LogManager.getRootLogger();
+
 	public GridService() {
 		try {
 			loadDefaultDictionary();
@@ -38,7 +44,7 @@ public class GridService {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
 	public SortedSet<String> getWords(@RequestBody Grid grid) {
-		System.out.println("grid="+grid);
+		logger.error("grid="+grid);
 		IGameBoard board=null;
 		if ( grid.getGridType()==Grid.GridType.GRID ) {
 			board=new ca.svarb.whelper.Grid(grid.getCells());
