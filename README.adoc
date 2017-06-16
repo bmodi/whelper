@@ -18,7 +18,7 @@ Whelper requires Java 1.8 and Maven 3 to build.  On a platform with prerequisite
   mvn package jetty:run
 ----
   
-Once the jetty server starts navigate to one of the grid pages:
+Once the jetty server starts open http://localhost:8080 and select one of the grid types, or navigate directly to:
 
 http://localhost:8080/grid.jsp
 
