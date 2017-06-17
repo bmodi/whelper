@@ -72,7 +72,7 @@ function fixRowColOutsideBoundaries() {
 }
 
 function generateWords(gridType) {
-	var url = "api/grid";
+	var url = "api/grids";
 	var client = new XMLHttpRequest();
 
 	client.open("POST", url, false);
