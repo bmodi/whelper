@@ -37,14 +37,16 @@ public class GridService {
 		try {
 			loadDefaultDictionary();
 		} catch (WhelperException e) {
-			System.out.println("Could not load dictionary: "+e.getMessage());
+			logger.error("Could not load dictionary: "+e.getMessage());
 		}
+		logger.info("GridService loaded");
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
 	public SortedSet<String> getWords(@RequestBody Grid grid) {
 		logger.debug("grid info="+grid);
+
 		IGameBoard board=null;
 		if ( grid.getGridType()==Grid.GridType.GRID ) {
 			board=new ca.svarb.whelper.Grid(grid.getCells());
