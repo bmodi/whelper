@@ -26,25 +26,6 @@
 	
 		<plugins>
 
-		  <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>osxappbundle-maven-plugin</artifactId>
-                <version>1.0-alpha-1</version>
-                <configuration>
-                    <mainClass>ca.svarb.whelper.gui.WhelperGui</mainClass>
-					<jvmVersion>1.5+</jvmVersion>
-					<iconFile>${basedir}/src/main/resources/whelper.icns</iconFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                    </execution>
-               </executions>
-           </plugin>			
-
 			<plugin>
 			  <groupId>org.apache.maven.plugins</groupId>
 			  <artifactId>maven-compiler-plugin</artifactId>
@@ -67,20 +48,6 @@
 			         <exclude>**/BaseTest.java</exclude>
 			       </excludes>
 			     </configuration>
-			</plugin>
-		    
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.0.2</version>
-				<configuration>
-				  <archive>
-				    <manifest>
-				      <addClasspath>true</addClasspath>
-				      <mainClass>ca.svarb.whelper.gui.WhelperGui</mainClass>
-				    </manifest>
-				  </archive>
-				</configuration>
 			</plugin>
 
 			<plugin>
