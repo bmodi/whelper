@@ -11,7 +11,7 @@ Obtain source code from git using a command such as:
   https://github.com/bmodi/whelper.git 
 ----
 
-Whelper requires Java 1.8 and Maven 3 to build.  On a platform with prerequisites installed, to build and start whelper:
+Whelper requires Java 11 and Maven 3 to build.  On a platform with prerequisites installed, to build and start whelper:
 
 [source,bash]
 ----
